@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "name": "LilyGo T5 community app catalog",
+  "apps": [
+    {
+      "id": "clock",
+      "name": "Big Clock",
+      "icon": "gear",
+      "author": "starter",
+      "description": "Full-screen digital clock that updates every minute.",
+      "entry": "clock_app:open_clock",
+      "files": ["apps/clock_app.py"]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# Device-local secrets (Tibber token, etc.) - never commit.
+secrets.py
+**/secrets.py
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Build logs
+*.log
+
+# Intermediate firmware artefacts (keep dist/firmware-epd.bin and firmware/firmware-epd.bin)
+firmware/manufacturer-*.bin
+firmware/ESP32_GENERIC_S3*.bin
+partitions.bin
+
+# Research / scratch files
+*.docx
+build/

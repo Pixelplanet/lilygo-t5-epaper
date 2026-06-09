@@ -1,0 +1,22 @@
+{
+  "apps": [
+    {"id": "trash", "name": "Calendar", "icon": "calendar", "kind": "builtin", "entry": "calendar_app:open_calendar"},
+    {"id": "prices", "name": "Prices", "icon": "bolt", "kind": "builtin", "entry": "tibber_app:open_prices"},
+    {"id": "hello", "name": "Hello", "icon": "star", "kind": "screen", "screen": "hello"},
+    {"id": "store", "name": "Apps", "icon": "gear", "slot": 5, "kind": "builtin", "entry": "appstore:open_store"},
+    {"id": "wifi", "name": "Wi-Fi", "icon": "wifi", "slot": 6, "kind": "builtin", "entry": "wifi_demo:HomeScreen"},
+    {"id": "help", "name": "Help", "icon": "help", "slot": 7, "kind": "builtin", "entry": "help:open_help"}
+  ],
+  "screens": {
+    "hello": {
+      "title": "Hello screen",
+      "back": true,
+      "widgets": [
+        {"type": "label", "x": 12, "y": 90, "text": "Built from ui.json", "scale": "h1"},
+        {"type": "label", "x": 12, "y": 150, "text": "Edit ui.json or use the web builder.", "scale": "body", "color": "muted"},
+        {"type": "button", "x": 12, "y": 220, "w": 360, "h": 84, "text": "Say hi", "scale": "h1", "action": "hook:say_hi"},
+        {"type": "label", "id": "msg", "x": 12, "y": 330, "text": "", "scale": "h1"}
+      ]
+    }
+  }
+}

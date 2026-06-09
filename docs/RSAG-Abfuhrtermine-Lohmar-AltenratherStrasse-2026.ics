@@ -1,0 +1,1028 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//rsag.de//RSAG AöR 2026//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+TZURL:http://tzurl.org/zoneinfo-outlook/Europe/Berlin
+X-LIC-LOCATION:Europe/Berlin
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681709775162053@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260609
+DTEND;VALUE=DATE:20260610
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681714186846884@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260616
+DTEND;VALUE=DATE:20260617
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681717660002215@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260623
+DTEND;VALUE=DATE:20260624
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68171a830115019@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260623
+DTEND;VALUE=DATE:20260624
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68171c480802772@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260630
+DTEND;VALUE=DATE:20260701
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68171e726208896@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260630
+DTEND;VALUE=DATE:20260701
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681720477516830@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260630
+DTEND;VALUE=DATE:20260701
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681722618625601@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260707
+DTEND;VALUE=DATE:20260708
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681724895649330@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260707
+DTEND;VALUE=DATE:20260708
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681725120188885@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260714
+DTEND;VALUE=DATE:20260715
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681727187165168@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260721
+DTEND;VALUE=DATE:20260722
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681729896734816@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260721
+DTEND;VALUE=DATE:20260722
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68172b119154042@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260728
+DTEND;VALUE=DATE:20260729
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68172d284228394@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260728
+DTEND;VALUE=DATE:20260729
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68172f836350355@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260728
+DTEND;VALUE=DATE:20260729
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681731466766047@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260804
+DTEND;VALUE=DATE:20260805
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681733037944389@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260804
+DTEND;VALUE=DATE:20260805
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681735708052169@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260811
+DTEND;VALUE=DATE:20260812
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681737382927401@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260818
+DTEND;VALUE=DATE:20260819
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681739951498451@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260818
+DTEND;VALUE=DATE:20260819
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68173b734383882@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68173d475498650@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68173f920178834@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260825
+DTEND;VALUE=DATE:20260826
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681741551698020@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681743511664696@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260901
+DTEND;VALUE=DATE:20260902
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681745960624370@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260908
+DTEND;VALUE=DATE:20260909
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681747217959650@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681749326758346@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260915
+DTEND;VALUE=DATE:20260916
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68174a863068731@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68174c296692733@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68174e515507251@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260922
+DTEND;VALUE=DATE:20260923
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681750541481700@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260929
+DTEND;VALUE=DATE:20260930
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681752251143363@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20260929
+DTEND;VALUE=DATE:20260930
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681754401436681@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261006
+DTEND;VALUE=DATE:20261007
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681756725588459@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261014
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681758214926736@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261013
+DTEND;VALUE=DATE:20261014
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68175a605571667@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68175b893605134@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68175d131174135@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261020
+DTEND;VALUE=DATE:20261021
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68175f769825187@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261027
+DTEND;VALUE=DATE:20261028
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681761385850217@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261027
+DTEND;VALUE=DATE:20261028
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681763704633401@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261103
+DTEND;VALUE=DATE:20261104
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681765465857105@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261110
+DTEND;VALUE=DATE:20261111
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681767693677889@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261110
+DTEND;VALUE=DATE:20261111
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681768668986465@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261117
+DTEND;VALUE=DATE:20261118
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68176a798514308@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261117
+DTEND;VALUE=DATE:20261118
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68176c578336177@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261117
+DTEND;VALUE=DATE:20261118
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68176e650845500@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261124
+DTEND;VALUE=DATE:20261125
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681770900907345@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261124
+DTEND;VALUE=DATE:20261125
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681772929150209@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261201
+DTEND;VALUE=DATE:20261202
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681773735429392@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261208
+DTEND;VALUE=DATE:20261209
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681776446648558@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261208
+DTEND;VALUE=DATE:20261209
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681777014143582@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261216
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681779679910056@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261216
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Papiertonne 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nPapiertonne 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68177b165050834@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261216
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Wertstofftonne oder -sack 4-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nWertstofftonne oder -sack 4-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68177d967954305@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261221
+DTEND;VALUE=DATE:20261222
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Restmülltonne 2-wö.
+DESCRIPTION:RSAG Abfuhrtermin:\nRestmülltonne 2-wö.\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d68177f101881788@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261221
+DTEND;VALUE=DATE:20261222
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681781507847062@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+CREATED:20260603T000600
+DTSTART;VALUE=DATE:20261229
+DTEND;VALUE=DATE:20261230
+DTSTAMP:20260603T130630Z
+LAST-MODIFIED:20260603T000600
+SUMMARY:Biotonne Regelabfuhr
+DESCRIPTION:RSAG Abfuhrtermin:\nBiotonne Regelabfuhr\n\nBitte beachten Sie\, dass sich die Leerungstage ändern können.\nDa wir unsere Touren regelmäßig optimieren und anpassen\, sollten Sie Ihren persönlichen Abfuhrkalender von Zeit zu Zeit aktualisieren.\n\nwww.rsag.de
+LOCATION:Altenrather Straße\, 53797 Lohmar
+TRANSP:TRANSPARENT
+UID:6a2026d681783343189417@rsag.de
+BEGIN:VALARM
+TRIGGER:-PT7H
+ACTION:DISPLAY
+DESCRIPTION:Reminder
+END:VALARM
+END:VEVENT
+END:VCALENDAR
