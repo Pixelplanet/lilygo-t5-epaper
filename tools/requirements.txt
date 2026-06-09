@@ -1,0 +1,8 @@
+# Tooling dependencies for the development host (NOT for the board).
+#
+# Simulator rendering:
+pillow>=10.0
+#
+# Device flashing / file upload (install whichever you prefer):
+esptool>=4.7
+mpremote>=1.22
