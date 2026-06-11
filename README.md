@@ -3,10 +3,6 @@
 MicroPython firmware project for the **LilyGo T5 4.7" Plus** e-paper board
 (ESP32-S3-WROOM-1-N16R8, ED047TC1 540×960 grayscale panel, GT911 touch, PCF8563 RTC).
 
-Built from `Research plan.docx`. The board is **not on hand yet** — everything here is prepared
-so it can be flashed the moment it arrives, and the whole touch UI is **runnable today** in a
-desktop simulator.
-
 ## What's included
 
 - **Flash-ready device code** (`src/`): hardware drivers + a small touch UI toolkit + a Wi-Fi
