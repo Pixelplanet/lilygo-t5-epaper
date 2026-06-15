@@ -83,15 +83,14 @@ try {
         Write-Host "  WARNING: version.json upload failed (OTA won't work until next deploy)" -ForegroundColor Yellow
     }
 
-    # Also generate/update the remote update.json manifest.
-    # This mirrors version.json but is what gets uploaded to GitHub.
-    $updateObj = @{
-        version     = $remoteVersion
-        description = $remoteJson.description ?? "Update from deploy"
-        files       = $hashTable
+    # Also generate/update the remote update.json manifest using Python
+    # (more reliable than PowerShell's JSON handling).
+    Write-Host "  Generating update.json via Python..." -ForegroundColor DarkGray
+    $genScript = Join-Path $PSScriptRoot "gen_hashes.py"
+    python $genScript
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "  WARNING: gen_hashes.py failed" -ForegroundColor Yellow
     }
-    $updateJson = $updateObj | ConvertTo-Json -Depth 3
-    Set-Content -Path $updateFile -Value $updateJson -Encoding UTF8
     Write-Host "  Updated $updateFile for GitHub upload" -ForegroundColor Green
     Write-Host "  → Commit & push update.json to publish the OTA update" -ForegroundColor Yellow
 }
