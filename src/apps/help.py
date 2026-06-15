@@ -14,9 +14,8 @@ SECTIONS = [
      "Hold BOOT during reset to skip the app and get a Python prompt."),
     ("Wi-Fi",
      "Remembers multiple networks. Auto-reconnects to any in range."),
-    ("System updates",
-     "Use the Update app to get new platform versions over Wi-Fi."
-     " Tested and working!"),
+    ("OTA updates",
+     "Tap Update on the home screen to get the latest version over Wi-Fi."),
     ("Ghosting",
      "In Wi-Fi: Refresh cleans the screen, Repair clears ghosts."),
     ("Add your own apps",
