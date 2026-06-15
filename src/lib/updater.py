@@ -25,7 +25,7 @@ SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/maste
 # Pinned commit SHA — updated by gen_hashes.py.  All OTA downloads use this
 # commit-specific URL so the file content matches the recorded hashes exactly,
 # completely bypassing GitHub's CDN cache on the /master/ branch URL.
-PINNED_COMMIT = "fdf4f4b1efd429fec85649ecffb75917f0cb2b56"
+PINNED_COMMIT = "742855456437ed44ef922ce41ba1b9c3b1f62e9f"
 
 
 def _sha256_hex(data):
@@ -156,11 +156,14 @@ async def check(update_url=UPDATE_URL):
     """Fetch the remote update manifest and return changed files if any."""
     import time
 
-    ts = str(int(time.time()))
+    # Use the pinned commit URL for the manifest too — this guarantees
+    # the hashes in the manifest match the files at that commit.
+    pinned_url = update_url.replace("/master/", "/" + PINNED_COMMIT + "/")
+
     body = None
-    for suffix in ("?cb=" + ts, "?v=" + ts):
+    for url in (pinned_url, update_url + "?t=" + str(int(time.time()))):
         try:
-            body = _https_get(update_url + suffix)
+            body = _https_get(url)
             break
         except Exception:
             continue

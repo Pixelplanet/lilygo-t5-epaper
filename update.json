@@ -27,7 +27,7 @@
     "lib/power.py": "edb802495e005bf53cf402adfb8b11021fa1d948dbe9c72957ee1128945de26b",
     "lib/profile.py": "f6f78f5fe0daf0896fdfc116ec07174d2d364fa192896fe7a53fed70b35bc90e",
     "lib/shared_i2c.py": "000f8dd1aa88a3493d99eca53827382d1426851332cc2d10ecb912189c4f8114",
-    "lib/updater.py": "dff0e165044bccea5192204df4e818a58b1a6cd5c1419b97b32e859273bbf6c3",
+    "lib/updater.py": "7eece42018bb841350b73456e299dc6d80065091dfe9cf1f5d6094854650854e",
     "lib/wifistore.py": "74fc4b86ab580b66a02e7a60e6bff5b6243ebefd26cb0a15515c72e09f08de08",
     "lib/__init__.py": "4995c44ded20b5d18e79e78938d636690d74bbfbb417d04dd2da80063de99a20",
     "lib/ui/core.py": "b9c258bb5f5f872ed36e0457cbb184ceac4566550666ef4236e9b649e3f5d2ef",
@@ -38,5 +38,5 @@
     "lib/ui/widgets.py": "2b1a24f24c832aa16bdcec6c6ddee6baf6e9a2bae586f4fae8bc9075bbeb8e63",
     "lib/ui/__init__.py": "9c3e2c5292cbcafaf8bb96b1851db42fe4e6692fe87ff99b34e7997fd2e79d31"
   },
-  "commit": "fdf4f4b1efd429fec85649ecffb75917f0cb2b56"
+  "commit": "742855456437ed44ef922ce41ba1b9c3b1f62e9f"
 }
