@@ -18,13 +18,14 @@ DEFAULT_APPS = [
      "kind": "builtin", "entry": "calendar_app:open_calendar"},
     {"id": "prices", "name": "Prices", "icon": "bolt", "slot": 1,
      "kind": "builtin", "entry": "tibber_app:open_prices"},
-    {"id": "update", "name": "Update", "icon": "gear", "slot": 2,
-     "kind": "builtin", "entry": "update_app:open_updater"},
-    {"id": "store", "name": "Apps", "icon": "gear", "slot": 3,
+    {"id": "store", "name": "Apps", "icon": "gear", "slot": 2,
      "kind": "builtin", "entry": "appstore:open_store"},
-    {"id": "wifi", "name": "Wi-Fi", "icon": "wifi", "slot": 4,
+    # Bottom row: Update | Wi-Fi | Help (rightmost).
+    {"id": "update", "name": "Update", "icon": "gear", "slot": 5,
+     "kind": "builtin", "entry": "update_app:open_updater"},
+    {"id": "wifi", "name": "Wi-Fi", "icon": "wifi", "slot": 6,
      "kind": "builtin", "entry": "wifi_demo:HomeScreen"},
-    {"id": "help", "name": "Help", "icon": "help", "slot": 5,
+    {"id": "help", "name": "Help", "icon": "help", "slot": 7,
      "kind": "builtin", "entry": "help:open_help"},
 ]
 
@@ -121,7 +122,8 @@ class AppTile(Widget):
 class LauncherScreen(Screen):
     def __init__(self, app):
         super().__init__(app, "LilyGo T5 4.7\" Plus")
-        self.tick_ms = 15000
+        self.tick_ms = 5000           # fast polls to catch auto-connect result
+        self._fast_ticks = 3          # first 3 ticks at 5s, then slow to 15s
         self.status = None
         # Cache the parsed config on the app so screens can reach it.
         if not hasattr(app, "_ui_config"):
@@ -171,6 +173,11 @@ class LauncherScreen(Screen):
 
     async def on_tick(self):
         await self._update_status()
+        # After a few fast polls, slow down to save power and reduce refresh wear.
+        if self._fast_ticks > 0:
+            self._fast_ticks -= 1
+            if self._fast_ticks == 0:
+                self.tick_ms = 15000
 
     async def _update_status(self):
         dt = await self.app.board.rtc.datetime()
