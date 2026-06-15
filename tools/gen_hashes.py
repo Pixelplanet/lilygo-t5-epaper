@@ -9,7 +9,11 @@ for root, dirs, files in os.walk(src):
             path = os.path.join(root, f)
             rel = os.path.relpath(path, src).replace('\\', '/')
             with open(path, 'rb') as fh2:
-                fh[rel] = hashlib.sha256(fh2.read()).hexdigest()
+                data = fh2.read()
+            # Normalize CRLF -> LF so the hash matches what GitHub serves
+            # (raw.githubusercontent.com always returns LF line endings).
+            data = data.replace(b'\r\n', b'\n')
+            fh[rel] = hashlib.sha256(data).hexdigest()
 
 with open('update.json') as fh2:
     u = json.load(fh2)

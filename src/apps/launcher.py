@@ -196,6 +196,10 @@ class LauncherScreen(Screen):
         changed = (clock != self.status.clock or ssid != self.status.ssid)
         self.status.set_status(clock, ssid)
         if changed:
+            # Also update the Wi-Fi tile text to show the SSID name.
+            for wgt in self.widgets:
+                if isinstance(wgt, AppTile) and wgt.entry.get("id") == "wifi":
+                    wgt.invalidate(False)
             await self.app.flush()
 
     def _open(self, entry):
@@ -218,23 +222,23 @@ class HomeStatus(Widget):
         self.invalidate(False)
 
     def draw(self, disp):
-        # Clock right-aligned.
-        cs = theme.BODY_SCALE
+        # Clock right-aligned, slightly larger.
+        cs = theme.H1_SCALE
         ctw = len(self.clock) * 8 * cs
         cx = self.x + self.w - ctw
         cy = self.y + (self.h - 8 * cs) // 2
         disp.text(self.clock, cx, cy, theme.FG, cs)
 
         # Wi-Fi icon just left of the time.
-        isize = 20
-        ix = cx - 12 - isize
+        isize = 28
+        ix = cx - 14 - isize
         iy = self.y + (self.h - isize) // 2
         icons.draw(disp, "wifi", ix, iy, isize)
 
         # Connected SSID (truncated) to the left of the icon.
         if self.ssid:
             ss = _trim(self.ssid, 14)
-            stw = len(ss) * 8 * theme.SMALL_SCALE
-            sx = ix - 10 - stw
-            sy = self.y + (self.h - 8 * theme.SMALL_SCALE) // 2
-            disp.text(ss, sx, sy, theme.FG_MUTED, theme.SMALL_SCALE)
+            stw = len(ss) * 8 * theme.BODY_SCALE
+            sx = ix - 12 - stw
+            sy = self.y + (self.h - 8 * theme.BODY_SCALE) // 2
+            disp.text(ss, sx, sy, theme.FG_MUTED, theme.BODY_SCALE)
