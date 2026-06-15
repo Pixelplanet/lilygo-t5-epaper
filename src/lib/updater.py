@@ -22,12 +22,6 @@ VERSION_PATH = "version.json"
 UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/update.json"
 SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/src/"
 
-# Pinned commit SHA — updated by gen_hashes.py.  All OTA downloads use this
-# commit-specific URL so the file content matches the recorded hashes exactly,
-# completely bypassing GitHub's CDN cache on the /master/ branch URL.
-PINNED_COMMIT = "6c3cb115faf743178d5ce8992bf336a6d2c8d62d"
-
-
 def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
     if isinstance(data, str):
@@ -153,17 +147,21 @@ def local_version():
 
 
 async def check(update_url=UPDATE_URL):
-    """Fetch the remote update manifest and return changed files if any."""
+    """Fetch the remote update manifest and return changed files if any.
+
+    Uses a two-step fetch to defeat CDN caching:
+    1. Fetch from branch URL (may be stale) to get the embedded commit hash.
+    2. Re-fetch from commit-specific URL for guaranteed-accurate hashes.
+    """
     import time
 
-    # Use the pinned commit URL for the manifest too — this guarantees
-    # the hashes in the manifest match the files at that commit.
-    pinned_url = update_url.replace("/master/", "/" + PINNED_COMMIT + "/")
-
+    ts = str(int(time.time()))
     body = None
-    for url in (pinned_url, update_url + "?t=" + str(int(time.time()))):
+
+    # Step 1: fetch from branch (cached) to discover the commit.
+    for suffix in ("?cb=" + ts, "?v=" + ts):
         try:
-            body = _https_get(url)
+            body = _https_get(update_url + suffix)
             break
         except Exception:
             continue
@@ -172,6 +170,23 @@ async def check(update_url=UPDATE_URL):
         raise OSError("could not fetch update manifest")
 
     remote = json.loads(body)
+    commit = remote.get("commit")
+
+    # Step 2: if we have a commit, re-fetch from the immutable commit URL.
+    # This guarantees hashes match the actual file content.
+    if commit:
+        commit_url = update_url.replace("/master/", "/" + commit + "/")
+        try:
+            body = _https_get(commit_url)
+            remote = json.loads(body)
+        except Exception:
+            pass  # use the branch-fetched version if commit URL fails
+
+    return _build_pending(remote)
+
+
+def _build_pending(remote):
+    """Build the pending-update dict from a parsed remote manifest."""
     remote_version = remote.get("version", 0)
     remote_files = remote.get("files", {})
     description = remote.get("description", "")
@@ -194,6 +209,7 @@ async def check(update_url=UPDATE_URL):
         "version": remote_version,
         "description": description,
         "files": changed,
+        "commit": commit,
     }
 
 
@@ -202,9 +218,9 @@ async def download_updates(pending, base_url=SRC_BASE, on_progress=None):
     import asyncio
     import time
 
-    # Always use the pinned commit for downloads — this guarantees the file
-    # content matches the recorded hash, regardless of CDN caching on /master/.
-    base_url = base_url.replace("/master/", "/" + PINNED_COMMIT + "/")
+    commit = pending.get("commit")
+    if commit:
+        base_url = base_url.replace("/master/", "/" + commit + "/")
 
     files = pending["files"]
     total = len(files)

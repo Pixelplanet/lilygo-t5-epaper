@@ -47,26 +47,5 @@ u['description'] = 'Regenerated hashes to match current source'
 with open('update.json', 'w') as fh2:
     json.dump(u, fh2, indent=2)
 
-# Auto-update PINNED_COMMIT in updater.py so OTA downloads always use the
-# correct commit-specific URL (bypassing GitHub CDN cache).
-commit = None
-try:
-    commit = subprocess.check_output(
-        ['git', 'rev-parse', 'HEAD'], text=True).strip()
-except Exception:
-    pass
-
-if commit:
-    updater_path = os.path.join(src, 'lib', 'updater.py')
-    if os.path.exists(updater_path):
-        with open(updater_path, 'r') as fh2:
-            content = fh2.read()
-        import re
-        content = re.sub(
-            r'PINNED_COMMIT = "[0-9a-f]+"',
-            'PINNED_COMMIT = "' + commit + '"',
-            content)
-        with open(updater_path, 'w') as fh2:
-            fh2.write(content)
-
-print('update.json v{}: {} files, commit={}'.format(u['version'], len(fh), commit))
+c = u.get('commit', '?')
+print('update.json v{}: {} files, commit={}'.format(u['version'], len(fh), c))
