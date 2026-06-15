@@ -27,11 +27,6 @@ VERSION_PATH = "version.json"
 UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/update.json"
 SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/src/"
 
-# Latest commit hash — used when cache-busting by query param isn't enough.
-# Update this when pushing a new OTA manifest.  The `check()` function tries
-# the commit URL first, falling back to the branch URL with a timestamp.
-LATEST_COMMIT = "224844c"
-
 
 def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
@@ -185,13 +180,13 @@ async def check(update_url=UPDATE_URL):
     import asyncio
     import time
 
-    # Try the pinned commit URL first (bypasses CDN caching entirely),
-    # then fall back to the branch URL with cache-busting timestamp.
-    commit_url = update_url.replace("/master/", "/" + LATEST_COMMIT + "/")
+    # GitHub's CDN caches raw URLs. A unique query parameter forces a fresh
+    # fetch. Two different patterns in case one is stripped by a proxy.
+    ts = str(int(time.time()))
     body = None
-    for url in (commit_url, update_url + "?t=" + str(int(time.time()))):
+    for suffix in ("?cb=" + ts, "?v=" + ts + "&_=" + ts[-6:]):
         try:
-            body = _https_get(url)
+            body = _https_get(update_url + suffix)
             break
         except Exception:
             continue

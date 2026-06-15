@@ -27,7 +27,7 @@
     "lib/power.py": "edb802495e005bf53cf402adfb8b11021fa1d948dbe9c72957ee1128945de26b",
     "lib/profile.py": "f6f78f5fe0daf0896fdfc116ec07174d2d364fa192896fe7a53fed70b35bc90e",
     "lib/shared_i2c.py": "000f8dd1aa88a3493d99eca53827382d1426851332cc2d10ecb912189c4f8114",
-    "lib/updater.py": "e7c69c3d7db60db173ca8c684bb960de8d174d6b88f76acb20fdfc9950e0fb46",
+    "lib/updater.py": "5c8723e8d0ae6721486b891dd2b36b69169e9aec6be7653f03b02fad8a1504a2",
     "lib/wifistore.py": "74fc4b86ab580b66a02e7a60e6bff5b6243ebefd26cb0a15515c72e09f08de08",
     "lib/__init__.py": "4995c44ded20b5d18e79e78938d636690d74bbfbb417d04dd2da80063de99a20",
     "lib/ui/core.py": "b9c258bb5f5f872ed36e0457cbb184ceac4566550666ef4236e9b649e3f5d2ef",
