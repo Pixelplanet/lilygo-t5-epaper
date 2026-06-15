@@ -25,7 +25,7 @@ SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/maste
 # Pinned commit SHA — updated by gen_hashes.py.  All OTA downloads use this
 # commit-specific URL so the file content matches the recorded hashes exactly,
 # completely bypassing GitHub's CDN cache on the /master/ branch URL.
-PINNED_COMMIT = "742855456437ed44ef922ce41ba1b9c3b1f62e9f"
+PINNED_COMMIT = "6c3cb115faf743178d5ce8992bf336a6d2c8d62d"
 
 
 def _sha256_hex(data):
