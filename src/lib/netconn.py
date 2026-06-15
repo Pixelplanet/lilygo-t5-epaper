@@ -24,6 +24,7 @@ def connected_ssid():
     try:
         import network
         sta = network.WLAN(network.STA_IF)
+        sta.active(True)
         if not sta.isconnected():
             return None
         val = sta.config("essid")

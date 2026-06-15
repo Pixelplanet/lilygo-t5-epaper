@@ -185,7 +185,11 @@ class LauncherScreen(Screen):
             clock = "{:02d}:{:02d}".format(dt[4], dt[5])
         else:
             clock = "--:--"
-        self.status.set_status(clock, netconn.connected_ssid())
+        ssid = netconn.connected_ssid()
+        changed = (clock != self.status.clock or ssid != self.status.ssid)
+        self.status.set_status(clock, ssid)
+        if changed:
+            await self.app.flush()
 
     def _open(self, entry):
         _open_app(self.app, entry)
