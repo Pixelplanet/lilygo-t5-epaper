@@ -74,13 +74,6 @@ class UpdaterScreen(Screen):
             return
 
         self.set_wifi_state("on")
-        self._bar.set_value(25)
-        self._status.set_text("Waiting for network to be ready...")
-        await self.app.flush()
-        # After auto-connect, DHCP may not have assigned an IP yet.
-        # Give the stack a moment to settle.
-        await asyncio.sleep_ms(1500)
-
         self._bar.set_value(40)
         self._status.set_text("Fetching update manifest from GitHub...")
         await self.app.flush()

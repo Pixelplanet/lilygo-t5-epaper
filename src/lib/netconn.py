@@ -53,31 +53,62 @@ def _begin(ssid, password):
 async def auto_connect(timeout=12):
     """Scan and connect to the first known network found in range.
 
-    Tries saved networks in most-recently-used order. If the first attempt
-    fails (wrong password, out of range, etc.), it moves on to the next.
-    Non-blocking (awaits between polls) so it can run as a background task.
+    Tries saved networks in most-recently-used order. Waits for DHCP (IP
+    assignment) after association. Non-blocking (awaits between polls).
 
-    Returns True if any connection succeeded, False otherwise.
+    Returns True if a working connection (with IP) is established.
     """
     import asyncio
+    import network
+
+    sta = network.WLAN(network.STA_IF)
+    sta.active(True)
+
+    # Already connected with an IP — nothing to do.
+    if sta.isconnected():
+        try:
+            ip = sta.ifconfig()[0]
+            if ip and ip != "0.0.0.0":
+                return True
+        except Exception:
+            pass
 
     networks = wifistore.load_networks()
     if not networks:
         return False
 
-    import network
-    sta = network.WLAN(network.STA_IF)
-    sta.active(True)
+    # If we're in a transitional state (associating), wait for it to settle
+    # rather than starting a new scan+connect cycle.
+    status = sta.status()
+    if status not in (0, 1001):  # not IDLE or WRONG_PASSWORD
+        # Give it a moment to finish associating.
+        for _ in range(30):
+            if sta.isconnected():
+                break
+            await asyncio.sleep_ms(100)
 
     if sta.isconnected():
-        return True
+        try:
+            ip = sta.ifconfig()[0]
+            if ip and ip != "0.0.0.0":
+                return True
+        except Exception:
+            pass
+        # Connected but no IP yet — wait for DHCP.
+        for _ in range(50):  # up to 5s
+            try:
+                ip = sta.ifconfig()[0]
+                if ip and ip != "0.0.0.0":
+                    return True
+            except Exception:
+                pass
+            await asyncio.sleep_ms(100)
 
-    # Scan for visible networks.
+    # Scan for visible networks, then try each known one.
     visible = set()
     try:
-        if sta.status() not in (0, 1001):
-            sta.disconnect()
-            await asyncio.sleep_ms(400)
+        sta.disconnect()
+        await asyncio.sleep_ms(400)
     except Exception:
         pass
     await asyncio.sleep_ms(150)
@@ -91,27 +122,38 @@ async def auto_connect(timeout=12):
     except Exception:
         pass
 
-    # Try networks in MRU order (last in list = most recent = first try).
+    # Try networks in MRU order.
     for net in reversed(networks):
         ssid = net.get("ssid")
         password = net.get("password", "")
         if ssid not in visible:
             continue
-
         try:
             try:
                 sta.config(txpower=8)
             except Exception:
                 pass
             sta.connect(ssid, password)
+            # Wait for association.
             for _ in range(timeout * 10):
                 if sta.isconnected():
-                    return True
+                    break
+                await asyncio.sleep_ms(100)
+            if not sta.isconnected():
+                continue
+            # Wait for DHCP.
+            for _ in range(50):
+                try:
+                    ip = sta.ifconfig()[0]
+                    if ip and ip != "0.0.0.0":
+                        return True
+                except Exception:
+                    pass
                 await asyncio.sleep_ms(100)
         except Exception:
             pass
 
-    return sta.isconnected()
+    return False
 
 
 def connect_blocking(timeout=12):
