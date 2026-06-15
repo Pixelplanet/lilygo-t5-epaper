@@ -5,14 +5,9 @@
 # writes them to flash. After a successful update the user can reset to run
 # the new code.
 #
-# Usage from an app:
-#     from lib.updater import check, download_updates
-#     pending = await check(UPDATE_URL)
-#     if pending:
-#         await download_updates(pending)
-#
-# The device needs Wi-Fi and enough free flash space for the largest updated
-# file (downloaded whole, then atomically replaced).
+# The manifest includes a "commit" field (SHA of the git commit that generated
+# it).  File downloads use the commit-specific URL to bypass GitHub's CDN
+# cache, guaranteeing the file content matches the recorded hash.
 import json
 import os
 
@@ -32,8 +27,6 @@ def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
     if isinstance(data, str):
         data = data.encode()
-    # MicroPython's uhashlib may not accept data in the constructor.
-    # Use the .update() pattern which works on both CPython and uPy.
     h = hashlib.sha256()
     h.update(data)
     try:
@@ -66,7 +59,6 @@ def _save_json(path, obj):
 
 
 def _mkdirs(path):
-    """Ensure parent directories exist for a file path."""
     parts = path.split("/")[:-1]
     cur = ""
     for p in parts:
@@ -78,7 +70,7 @@ def _mkdirs(path):
 
 
 # --------------------------------------------------------------------------- #
-# Minimal HTTPS GET (same pattern as appstore.py, avoids urequests dep)
+# Minimal HTTPS GET
 # --------------------------------------------------------------------------- #
 def _split_url(url):
     if url.startswith("https://"):
@@ -155,36 +147,13 @@ def local_version():
     return v.get("version", 0), v.get("files", {})
 
 
-def local_file_hashes():
-    """Compute SHA-256 hashes of all tracked files on flash. Used to generate
-    version.json after a successful update or initial deploy."""
-    _, tracked = local_version()
-    result = {}
-    for path in tracked:
-        h = _file_sha256(path)
-        if h:
-            result[path] = h
-    return result
-
-
 async def check(update_url=UPDATE_URL):
-    """Fetch the remote update manifest and return a dict of files that differ.
-
-    Returns:
-        None — no updates available or already up-to-date.
-        {"version": N, "description": "...", "files": {"main.py": "sha256", ...}}
-          — dict of changed files (path -> expected hash).
-    Raises:
-        OSError, ValueError, etc. on network / parse failures.
-    """
-    import asyncio
+    """Fetch the remote update manifest and return changed files if any."""
     import time
 
-    # GitHub's CDN caches raw URLs. A unique query parameter forces a fresh
-    # fetch. Two different patterns in case one is stripped by a proxy.
     ts = str(int(time.time()))
     body = None
-    for suffix in ("?cb=" + ts, "?v=" + ts + "&_=" + ts[-6:]):
+    for suffix in ("?cb=" + ts, "?v=" + ts):
         try:
             body = _https_get(update_url + suffix)
             break
@@ -195,21 +164,19 @@ async def check(update_url=UPDATE_URL):
         raise OSError("could not fetch update manifest")
 
     remote = json.loads(body)
-
     remote_version = remote.get("version", 0)
     remote_files = remote.get("files", {})
     description = remote.get("description", "")
+    commit = remote.get("commit", None)
 
     local_ver, local_files = local_version()
 
     if remote_version <= local_ver:
-        return None  # already current
+        return None
 
-    # Find files that differ (or are new).
     changed = {}
     for path, rhash in remote_files.items():
-        lhash = local_files.get(path)
-        if lhash != rhash:
+        if local_files.get(path) != rhash:
             changed[path] = rhash
 
     if not changed:
@@ -219,19 +186,18 @@ async def check(update_url=UPDATE_URL):
         "version": remote_version,
         "description": description,
         "files": changed,
+        "commit": commit,
     }
 
 
-async def download_updates(pending, base_url=SRC_BASE,
-                           on_progress=None):
-    """Download each file in `pending["files"]` to flash and update version.json.
-
-    `pending` is the dict returned by check().
-    `on_progress(path, done, total)` is called after each file download.
-    Returns the number of files successfully downloaded.
-    """
+async def download_updates(pending, base_url=SRC_BASE, on_progress=None):
+    """Download each changed file to flash and update version.json."""
     import asyncio
     import time
+
+    commit = pending.get("commit")
+    if commit:
+        base_url = base_url.replace("/master/", "/" + commit + "/")
 
     files = pending["files"]
     total = len(files)
@@ -240,40 +206,31 @@ async def download_updates(pending, base_url=SRC_BASE,
 
     for path, expected_hash in files.items():
         url = base_url + path
-        # Cache-bust and retry once on timeout.
         body = None
         for attempt in range(2):
             try:
-                # Append unique timestamp to bypass CDN cache.
-                cb_url = url + "?t=" + str(int(time.time()))
-                body = _https_get(cb_url)
+                body = _https_get(url + "?t=" + str(int(time.time())))
                 break
-            except Exception as e:  # noqa: BLE001
+            except Exception:
                 if attempt == 0:
-                    # Brief pause then retry.
                     await asyncio.sleep_ms(2000)
                     continue
                 if on_progress:
                     on_progress(path, done, total)
                 raise
 
-        # Verify hash before writing.
         actual = _sha256_hex(body)
         if actual != expected_hash:
             if on_progress:
                 on_progress(path, done, total)
-            raise ValueError(
-                "hash mismatch: {}".format(path.split("/")[-1]))
+            raise ValueError("hash mismatch: " + path.split("/")[-1])
 
         _mkdirs(path)
-        # Write to a temp file first, then atomically rename so a power loss
-        # mid-write doesn't leave a half-written file.
         tmp = path + ".tmp"
         try:
             with open(tmp, "wb") as f:
                 f.write(body)
             os.sync()
-            # MicroPython's os.rename is atomic on littlefs.
             os.rename(tmp, path)
         finally:
             try:
@@ -286,12 +243,10 @@ async def download_updates(pending, base_url=SRC_BASE,
         if on_progress:
             on_progress(path, done, total)
 
-    # Update local version.json to match what we just wrote.
     _, tracked = local_version()
     new_files = {}
     for path in files:
         new_files[path] = files[path]
-    # Keep hashes of unchanged tracked files that we didn't download.
     for path, h in tracked.items():
         if path not in new_files:
             new_files[path] = h

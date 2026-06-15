@@ -35,6 +35,14 @@ for root, dirs, files in os.walk(src):
 with open('update.json') as fh2:
     u = json.load(fh2)
 u['files'] = fh
+# Store the current commit hash so the updater can fetch from the exact
+# commit, bypassing GitHub's CDN cache on the /master/ branch URL.
+try:
+    commit = subprocess.check_output(
+        ['git', 'rev-parse', 'HEAD'], text=True).strip()
+    u['commit'] = commit
+except Exception:
+    pass
 u['description'] = 'Regenerated hashes to match current source'
 with open('update.json', 'w') as fh2:
     json.dump(u, fh2, indent=2)
