@@ -14,18 +14,17 @@ from lib.ui import declarative, icons, theme
 from lib.ui.core import DOWN, UP, Screen, Widget
 
 DEFAULT_APPS = [
-    {"id": "trash", "name": "Calendar", "icon": "calendar",
+    {"id": "trash", "name": "Calendar", "icon": "calendar", "slot": 0,
      "kind": "builtin", "entry": "calendar_app:open_calendar"},
-    {"id": "prices", "name": "Prices", "icon": "bolt",
+    {"id": "prices", "name": "Prices", "icon": "bolt", "slot": 1,
      "kind": "builtin", "entry": "tibber_app:open_prices"},
-    {"id": "update", "name": "Update", "icon": "gear",
+    {"id": "update", "name": "Update", "icon": "gear", "slot": 2,
      "kind": "builtin", "entry": "update_app:open_updater"},
-    # Pinned to fixed grid slots in the bottom row (slots 5, 6 and 7).
-    {"id": "store", "name": "Apps", "icon": "gear", "slot": 5,
+    {"id": "store", "name": "Apps", "icon": "gear", "slot": 3,
      "kind": "builtin", "entry": "appstore:open_store"},
-    {"id": "wifi", "name": "Wi-Fi", "icon": "wifi", "slot": 6,
+    {"id": "wifi", "name": "Wi-Fi", "icon": "wifi", "slot": 4,
      "kind": "builtin", "entry": "wifi_demo:HomeScreen"},
-    {"id": "help", "name": "Help", "icon": "help", "slot": 7,
+    {"id": "help", "name": "Help", "icon": "help", "slot": 5,
      "kind": "builtin", "entry": "help:open_help"},
 ]
 

@@ -8,7 +8,7 @@
 from lib import debuglog, netconn
 from lib.ui import theme
 from lib.ui.core import Screen
-from lib.ui.widgets import Button, Label
+from lib.ui.widgets import Button, Label, ProgressBar
 from lib import updater
 
 
@@ -21,6 +21,7 @@ class UpdaterScreen(Screen):
         super().__init__(app, "System update")
         self._status = None
         self._btn = None
+        self._bar = None
         self._pending = None
         self._busy = False
 
@@ -37,60 +38,76 @@ class UpdaterScreen(Screen):
                        theme.BODY_SCALE))
         y += 36
 
-        self._status = self.add(Label(theme.PAD, y, "Tap Check to look for updates.",
+        self._status = self.add(Label(theme.PAD, y,
+                                       "Checks GitHub for newer platform versions.",
                                        theme.BODY_SCALE, theme.FG_MUTED))
         y += 50
 
         self._btn = self.add(Button(
             theme.PAD, y, d.width - 2 * theme.PAD, 72,
-            "Check for updates", self._do_check, theme.H1_SCALE))
+            "Check for updates", self._start_check, theme.H1_SCALE))
+        y += 90
+        self._bar = self.add(ProgressBar(theme.PAD, y,
+                                         d.width - 2 * theme.PAD, 30, 0))
 
-    async def _do_check(self):
+    def _start_check(self):
+        """Called by the button press (sync). Kick off the async check."""
         if self._busy:
             return
+        import asyncio
         self._busy = True
-        self._btn.on_press = None
+        self._btn.on_press = None  # disable button during check
+        asyncio.create_task(self._do_check())
 
-        self._status.set_text("Connecting...")
+    async def _do_check(self):
+        self._bar.set_value(10)
+        self._status.set_text("Connecting to Wi-Fi...")
         self.set_wifi_state("wait")
         await self.app.flush()
 
         if not await netconn.auto_connect():
             self.set_wifi_state("off")
-            self._status.set_text("Wi-Fi needed — connect in Wi-Fi app first.")
+            self._status.set_text("No Wi-Fi. Connect in the Wi-Fi app first.")
+            self._bar.set_value(0)
             self._busy = False
             await self.app.flush()
             return
 
         self.set_wifi_state("on")
-        self._status.set_text("Checking for updates...")
+        self._bar.set_value(30)
+        self._status.set_text("Fetching update manifest from GitHub...")
         await self.app.flush()
 
         try:
             self._pending = await updater.check()
         except Exception as e:  # noqa: BLE001
             debuglog.log("updater: check failed " + str(e))
-            self._status.set_text("Could not check — see debug.log")
+            self._status.set_text("Network error. Check debug.log.")
+            self._bar.set_value(0)
             self._busy = False
             await self.app.flush()
             return
+
+        self._bar.set_value(100)
 
         if self._pending is None:
-            self._status.set_text("You're up to date! No updates available.")
+            local_ver, _ = updater.local_version()
+            self._status.set_text(
+                "Up to date (v{}). No newer version found.".format(local_ver))
             self._busy = False
             await self.app.flush()
             return
 
+        # Show what was found, then navigate to the detail screen.
         n = len(self._pending["files"])
-        desc = self._pending.get("description", "")
         v = self._pending["version"]
+        desc = self._pending.get("description", "")
 
         self._status.set_text(
-            "v{} available ({} file{}). {}".format(
-                v, n, "s" if n != 1 else "", desc))
+            "Found v{} — {} changed file{}. Opening details...".format(
+                v, n, "s" if n != 1 else ""))
         await self.app.flush()
 
-        # Rebuild the button to be an "Update now" action.
         self.app.go(UpdateConfirmScreen(self.app, self._pending))
 
 
@@ -99,6 +116,7 @@ class UpdateConfirmScreen(Screen):
         super().__init__(app, "Update available")
         self._pending = pending
         self._status = None
+        self._bar = None
         self._busy = False
         self._files_list = sorted(pending["files"].keys())
 
@@ -112,49 +130,71 @@ class UpdateConfirmScreen(Screen):
 
         y = theme.TITLE_BAR_H + 12
         self.add(Label(theme.PAD, y,
-                       "Update to v{} ({} files)".format(v, n),
+                       "v{}  —  {} changed file{}".format(
+                           v, n, "s" if n != 1 else ""),
                        theme.H1_SCALE))
-        y += 40
+        y += 36
 
         if desc:
-            self.add(Label(theme.PAD, y, desc, theme.BODY_SCALE,
-                           theme.FG_MUTED))
-            y += 30
+            self.add(Label(theme.PAD, y, "Changes: " + desc,
+                           theme.BODY_SCALE, theme.FG_MUTED))
+            y += 28
 
-        # Show the first few changed files so the user knows what's affected.
-        shown = self._files_list[:8]
+        # File list header.
+        self.add(Label(theme.PAD, y, "Files to update:",
+                       theme.BODY_SCALE, theme.FG_MUTED))
+        y += 22
+
+        # Show all changed files (up to 10, then truncate).
+        shown = self._files_list[:10]
         for f in shown:
-            self.add(Label(theme.PAD + 8, y, f, theme.SMALL_SCALE,
+            short = f.split("/")[-1]  # just the filename for display
+            dirs = "/".join(f.split("/")[:-1])
+            label = "  " + short
+            if dirs:
+                label = "  " + dirs + "/" + short
+            self.add(Label(theme.PAD + 4, y, label, theme.SMALL_SCALE,
                            theme.FG_MUTED))
             y += 14
-        if len(self._files_list) > 8:
-            self.add(Label(theme.PAD + 8, y,
-                           "... and {} more".format(
-                               len(self._files_list) - 8),
+        if len(self._files_list) > 10:
+            self.add(Label(theme.PAD + 4, y,
+                           "  ... and {} more".format(
+                               len(self._files_list) - 10),
                            theme.SMALL_SCALE, theme.FG_MUTED))
             y += 14
 
-        y += 16
+        y += 14
         self._status = self.add(Label(theme.PAD, y, "",
                                        theme.BODY_SCALE, theme.FG_MUTED))
-        y += 36
+        y += 32
+
+        self._bar = self.add(ProgressBar(theme.PAD, y,
+                                         d.width - 2 * theme.PAD, 30, 0))
+        y += 46
 
         self.add(Button(
             theme.PAD, y, d.width - 2 * theme.PAD, 72,
-            "Download & install update", self._do_update,
+            "Download & install update", self._start_download,
             theme.H1_SCALE))
 
-    async def _do_update(self):
+    def _start_download(self):
         if self._busy:
             return
+        import asyncio
         self._busy = True
+        asyncio.create_task(self._do_update())
+
+    async def _do_update(self):
+        nfiles = len(self._pending["files"])
 
         def progress(path, done, total):
+            pct = int(done * 100 / total) if total else 100
+            self._bar.set_value(pct)
             self._status.set_text(
-                "Downloading [{}/{}] {}".format(done, total,
-                                                path.split("/")[-1]))
+                "[{}/{}] {}".format(done, total, path.split("/")[-1]))
 
-        self._status.set_text("Starting download...")
+        self._status.set_text("Starting download ({} files)...".format(nfiles))
+        self._bar.set_value(0)
         self.set_wifi_state("on")
         await self.app.flush()
 
@@ -163,17 +203,18 @@ class UpdateConfirmScreen(Screen):
                                                on_progress=progress)
         except Exception as e:  # noqa: BLE001
             debuglog.log("updater: download failed " + str(e))
-            self._status.set_text("Download failed — see debug.log")
+            self._status.set_text("Download failed. Check Wi-Fi and retry.")
+            self._bar.set_value(0)
             self._busy = False
             await self.app.flush()
             return
 
+        self._bar.set_value(100)
         self._status.set_text(
-            "Updated {} file{}. Reset to apply.".format(
+            "{} file{} updated. Ready to reset.".format(
                 n, "s" if n != 1 else ""))
         await self.app.flush()
 
-        # Replace the button with a reset button.
         self.app.go(UpdateDoneScreen(self.app))
 
 
@@ -185,15 +226,16 @@ class UpdateDoneScreen(Screen):
         self.add_back_button()
         d = self.app.display
 
-        y = theme.TITLE_BAR_H + 12
+        y = theme.TITLE_BAR_H + 20
         self.add(Label(theme.PAD, y, "Update installed successfully!",
                        theme.H1_SCALE))
-        y += 50
+        y += 48
         self.add(Label(theme.PAD, y,
-                       "The device will reset and boot the new version.",
+                       "The device will restart and boot the new version.",
                        theme.BODY_SCALE, theme.FG_MUTED))
-        y += 60
+        y += 80
 
         self.add(Button(theme.PAD, y,
                         d.width - 2 * theme.PAD, 80,
                         "Reset now", updater.do_reset, theme.TITLE_SCALE))
+
