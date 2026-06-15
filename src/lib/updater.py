@@ -22,6 +22,10 @@ VERSION_PATH = "version.json"
 UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/update.json"
 SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/src/"
 
+# Commit that matches the hashes in update.json — set by gen_hashes.py.
+# All fetches use this commit-specific URL to bypass CDN caching entirely.
+PINNED_COMMIT = "094c0f94c2e117d0c6b879ca40300e918165db4f"
+
 def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
     if isinstance(data, str):
@@ -149,15 +153,13 @@ def local_version():
 
 
 async def check(update_url=UPDATE_URL):
-    """Fetch the remote update manifest and return changed files if any."""
-    import time
+    """Fetch the remote update manifest and return changed files if any.
 
-    # Fetch from the branch URL with a cache-busting query parameter.
-    # The HTTPS request also sends Cache-Control: no-cache headers.
-    url = update_url + "?t=" + str(int(time.time()))
-    body = _https_get(url)
+    Uses the pinned commit URL to completely bypass GitHub's CDN cache.
+    """
+    commit_url = update_url.replace("/master/", "/" + PINNED_COMMIT + "/")
+    body = _https_get(commit_url)
     remote = json.loads(body)
-
     return _build_pending(remote)
 
 
@@ -194,9 +196,8 @@ async def download_updates(pending, base_url=SRC_BASE, on_progress=None):
     import asyncio
     import time
 
-    commit = pending.get("commit")
-    if commit:
-        base_url = base_url.replace("/master/", "/" + commit + "/")
+    # Use pinned commit URL so file content matches recorded hashes exactly.
+    base_url = base_url.replace("/master/", "/" + PINNED_COMMIT + "/")
 
     files = pending["files"]
     total = len(files)
