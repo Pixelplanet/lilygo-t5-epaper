@@ -109,7 +109,7 @@ def _dechunk(body):
     return out
 
 
-def _https_get(url, timeout=15):
+def _https_get(url, timeout=30):
     import socket
     import ssl
     host, path = _split_url(url)
@@ -222,6 +222,7 @@ async def download_updates(pending, base_url=SRC_BASE,
     Returns the number of files successfully downloaded.
     """
     import asyncio
+    import time
 
     files = pending["files"]
     total = len(files)
@@ -230,12 +231,22 @@ async def download_updates(pending, base_url=SRC_BASE,
 
     for path, expected_hash in files.items():
         url = base_url + path
-        try:
-            body = _https_get(url)
-        except Exception as e:  # noqa: BLE001
-            if on_progress:
-                on_progress(path, done, total)
-            raise
+        # Cache-bust and retry once on timeout.
+        body = None
+        for attempt in range(2):
+            try:
+                # Append unique timestamp to bypass CDN cache.
+                cb_url = url + "?t=" + str(int(time.time()))
+                body = _https_get(cb_url)
+                break
+            except Exception as e:  # noqa: BLE001
+                if attempt == 0:
+                    # Brief pause then retry.
+                    await asyncio.sleep_ms(2000)
+                    continue
+                if on_progress:
+                    on_progress(path, done, total)
+                raise
 
         # Verify hash before writing.
         actual = _sha256_hex(body)
