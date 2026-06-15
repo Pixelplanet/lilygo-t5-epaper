@@ -237,8 +237,7 @@ async def download_updates(pending, base_url=SRC_BASE,
             if on_progress:
                 on_progress(path, done, total)
             raise ValueError(
-                "hash mismatch for {}: expected {} got {}".format(
-                    path, expected_hash[:12], actual[:12]))
+                "hash mismatch: {}".format(path.split("/")[-1]))
 
         _mkdirs(path)
         # Write to a temp file first, then atomically rename so a power loss
