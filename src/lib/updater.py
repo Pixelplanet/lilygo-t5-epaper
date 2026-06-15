@@ -30,7 +30,7 @@ SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/maste
 # Latest commit hash — used when cache-busting by query param isn't enough.
 # Update this when pushing a new OTA manifest.  The `check()` function tries
 # the commit URL first, falling back to the branch URL with a timestamp.
-LATEST_COMMIT = "130ad97"
+LATEST_COMMIT = "224844c"
 
 
 def _sha256_hex(data):
