@@ -32,9 +32,10 @@ def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
     if isinstance(data, str):
         data = data.encode()
-    h = hashlib.sha256(data)
-    # MicroPython uhashlib returns .digest() -> bytes; CPython has .hexdigest() -> str.
-    # Use ubinascii.hexlify for portability.
+    # MicroPython's uhashlib may not accept data in the constructor.
+    # Use the .update() pattern which works on both CPython and uPy.
+    h = hashlib.sha256()
+    h.update(data)
     try:
         return h.hexdigest()
     except AttributeError:

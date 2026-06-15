@@ -169,6 +169,13 @@ class LauncherScreen(Screen):
             self.add(AppTile(tx, ty, tile, tile, entry, self._open))
 
     async def task(self):
+        # Poll Wi-Fi status aggressively for the first ~10s after boot,
+        # since auto_connect takes a few seconds to scan+associate+DHCP.
+        import asyncio
+        for _ in range(6):
+            await self._update_status()
+            await asyncio.sleep_ms(2000)
+        # After that, on_tick handles periodic updates.
         await self._update_status()
 
     async def on_tick(self):
