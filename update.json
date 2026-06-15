@@ -1,13 +1,12 @@
 {
-  "version": 1,
-  "description": "Initial release with OTA update support",
+  "version": 2,
+  "description": "OTA test update: help text + branch fix",
   "files": {
     "main.py": "a20e7316711cfe7b84509d1644ddd4be7eb268b15201dc89f1777daf9a2ba529",
     "lib/debuglog.py": "4d57ce5b1fbd4ff0f7d11912e0c54e63f5b05bfc750ab659cbf4f290ea06d5ef",
     "apps/calendar_app.py": "54fe32692a189c09cce635695022fd86a6d2379564d2810ad02241cf3a579ed2",
     "lib/board.py": "1e814d1b212b54d2a0ed73000a4e2a4b5bd5403aaa2542c3e024bf33624c6c9e",
     "lib/profile.py": "75897cbb892d777b0d59c7d0e6dad1c4e1129fcb1a8979b9b7751c391918a96f",
-    "lib/updater.py": "2050131a997317af2db572082fb0e88d2487461ac679446d9aedc1b01a6abfff",
     "boot.py": "e3be93cce59e564015c06393b08a38308d364368bb0a8898f66ed17013479ab4",
     "lib/ics.py": "26c4161b78a81c7e481d5de60a00b8a5fb9c8d165150615e9025066d610aedb6",
     "apps/menu.py": "ba1f486479a92046c9a4f394b881c9df2df62c1a55d97cf500a8f81f65ca47a3",
@@ -26,7 +25,6 @@
     "lib/parallel_bypass.py": "ed2263a4d7ffe0e74a5c6a418d0fc1a7e71ba5bfbf53bdbe23a2604fa4ca1623",
     "lib/gt911.py": "ccc8265863ee72effb3fb2d3a44ed045b3dc638ae7dc04cbf0afc9ae6057de12",
     "lib/ui/keyboard.py": "a27332b31ccbc186ec21e3ba7bbde4f5b479420bdad5cc404e2cdf35f9e3be5b",
-    "apps/help.py": "54f0b1f43d7b058e24c8251ca2b7a6ee1e9d60bbfc17b6bf3060eaceec026643",
     "apps/update_app.py": "a7f82458128d1e4487e9f87623bac591c52fa442f6160514fcf72f95b08bece6",
     "apps/__init__.py": "3d5bdb63f88f745cc35da40409a4b5af98ef5a2218d5092edcdd3751f940d592",
     "apps/tibber_app.py": "23835fa7fc06ee8a99dfaf384f568eb63135a702887882396a78048d82684590",
@@ -37,6 +35,8 @@
     "lib/netconn.py": "789b48f8150966639573658ecabb700d3b0d12eefde313f025cf3ee6263ce08a",
     "lib/wifistore.py": "2fa53a6cc28c9a597e732e28f8d06b29dee7b02b36886a89b2954331b6ba99c3",
     "lib/ui/theme.py": "6cb94b79ad56932926dc91da090eb310f374d1d80f6dd47a1615f5b742652b13",
-    "apps/launcher.py": "1f8e7ecd9d5e69a74fb5d5c89c823a669e54ce80d8994e7973154f869fe1b533"
+    "apps/launcher.py": "1f8e7ecd9d5e69a74fb5d5c89c823a669e54ce80d8994e7973154f869fe1b533",
+    "apps/help.py": "dec511117f3b8d069f833b8ec0252554735928e2832562a3b109067b8a0d330f",
+    "lib/updater.py": "81cbe39ba9a9fb06a6957c2948b28aebd46b04ef58171df4b27683c3130a9feb"
   }
 }

@@ -22,8 +22,8 @@ except ImportError:
     import hashlib
 
 VERSION_PATH = "version.json"
-UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/main/update.json"
-SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/main/src/"
+UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/update.json"
+SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/src/"
 
 
 def _sha256_hex(data):

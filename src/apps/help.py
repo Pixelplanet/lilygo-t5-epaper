@@ -16,7 +16,7 @@ SECTIONS = [
      "Open Wi-Fi once; it reconnects automatically at startup."),
     ("System updates",
      "Use the Update app to get new platform versions over Wi-Fi."
-     " No need to reflash."),
+     " Tested and working!"),
     ("Ghosting",
      "In Wi-Fi: Refresh cleans the screen, Repair clears ghosts."),
     ("Add your own apps",
