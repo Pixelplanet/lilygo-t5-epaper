@@ -66,8 +66,11 @@ class ProgressBar(Widget):
         self.value = value  # 0..100
 
     def set_value(self, v):
+        old = self.value
         self.value = max(0, min(100, v))
-        self.invalidate()
+        # Increasing = only adds dark pixels → additive (instant, no flash).
+        # Decreasing = old dark pixels must be erased → full clear.
+        self.invalidate(fast=(self.value >= old))
 
     def draw(self, disp):
         disp.rect(self.x, self.y, self.w, self.h, theme.FG)

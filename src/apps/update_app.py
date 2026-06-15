@@ -148,20 +148,20 @@ class UpdateConfirmScreen(Screen):
         # Show all changed files (up to 10, then truncate).
         shown = self._files_list[:10]
         for f in shown:
-            short = f.split("/")[-1]  # just the filename for display
+            short = f.split("/")[-1]
             dirs = "/".join(f.split("/")[:-1])
             label = "  " + short
             if dirs:
-                label = "  " + dirs + "/" + short
-            self.add(Label(theme.PAD + 4, y, label, theme.SMALL_SCALE,
+                label = dirs + "/" + short
+            self.add(Label(theme.PAD + 4, y, label, theme.BODY_SCALE,
                            theme.FG_MUTED))
-            y += 14
+            y += 20
         if len(self._files_list) > 10:
             self.add(Label(theme.PAD + 4, y,
                            "  ... and {} more".format(
                                len(self._files_list) - 10),
-                           theme.SMALL_SCALE, theme.FG_MUTED))
-            y += 14
+                           theme.BODY_SCALE, theme.FG_MUTED))
+            y += 20
 
         y += 14
         self._status = self.add(Label(theme.PAD, y, "",
@@ -203,7 +203,7 @@ class UpdateConfirmScreen(Screen):
                                                on_progress=progress)
         except Exception as e:  # noqa: BLE001
             debuglog.log("updater: download failed " + str(e))
-            self._status.set_text("Download failed. Check Wi-Fi and retry.")
+            self._status.set_text("Download failed: " + str(e)[:80])
             self._bar.set_value(0)
             self._busy = False
             await self.app.flush()
