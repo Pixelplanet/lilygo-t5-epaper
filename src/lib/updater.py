@@ -177,8 +177,13 @@ async def check(update_url=UPDATE_URL):
         OSError, ValueError, etc. on network / parse failures.
     """
     import asyncio
+    import time
 
-    body = _https_get(update_url)
+    # Cache-bust: GitHub's CDN caches raw URLs aggressively. A unique
+    # query parameter forces a fresh fetch every time.
+    url = update_url + "?t=" + str(int(time.time()))
+
+    body = _https_get(url)
     remote = json.loads(body)
 
     remote_version = remote.get("version", 0)
