@@ -121,18 +121,14 @@ class AppTile(Widget):
 
 class LauncherScreen(Screen):
     def __init__(self, app):
-        super().__init__(app, "LilyGo T5 4.7\" Plus")
-        self.tick_ms = 5000           # fast polls to catch auto-connect result
-        self._fast_ticks = 3          # first 3 ticks at 5s, then slow to 15s
-        self.status = None
+        super().__init__(app, "LilyGo T5")
+        self.tick_ms = 15000
         # Cache the parsed config on the app so screens can reach it.
         if not hasattr(app, "_ui_config"):
             app._ui_config = declarative.load_config()
 
     def build(self):
         d = self.app.display
-        self.status = self.add(HomeStatus(d.width - 360, 6, 348,
-                          theme.TITLE_BAR_H - 8))
         apps = (self.app._ui_config.get("apps") if self.app._ui_config
                 else None) or DEFAULT_APPS
         gap = theme.PAD
@@ -168,77 +164,5 @@ class LauncherScreen(Screen):
             tx, ty = slot_xy(slot)
             self.add(AppTile(tx, ty, tile, tile, entry, self._open))
 
-    async def task(self):
-        # Poll Wi-Fi status aggressively for the first ~10s after boot,
-        # since auto_connect takes a few seconds to scan+associate+DHCP.
-        import asyncio
-        for _ in range(6):
-            await self._update_status()
-            await asyncio.sleep_ms(2000)
-        # After that, on_tick handles periodic updates.
-        await self._update_status()
-
-    async def on_tick(self):
-        await self._update_status()
-        # After a few fast polls, slow down to save power and reduce refresh wear.
-        if self._fast_ticks > 0:
-            self._fast_ticks -= 1
-            if self._fast_ticks == 0:
-                self.tick_ms = 15000
-
-    async def _update_status(self):
-        dt = await self.app.board.rtc.datetime()
-        if dt:
-            clock = "{:02d}:{:02d}".format(dt[4], dt[5])
-        else:
-            clock = "--:--"
-        ssid = netconn.connected_ssid()
-        changed = (clock != self.status.clock or ssid != self.status.ssid)
-        self.status.set_status(clock, ssid)
-        if changed:
-            # Also update the Wi-Fi tile text to show the SSID name.
-            for wgt in self.widgets:
-                if isinstance(wgt, AppTile) and wgt.entry.get("id") == "wifi":
-                    wgt.invalidate(False)
-            await self.app.flush()
-
     def _open(self, entry):
         _open_app(self.app, entry)
-
-
-class HomeStatus(Widget):
-    """Top-right status strip: clock + Wi-Fi icon + SSID (if connected)."""
-
-    def __init__(self, x, y, w, h):
-        super().__init__(x, y, w, h)
-        self.clock = "--:--"
-        self.ssid = None
-
-    def set_status(self, clock, ssid):
-        if clock == self.clock and ssid == self.ssid:
-            return
-        self.clock = clock
-        self.ssid = ssid
-        self.invalidate(False)
-
-    def draw(self, disp):
-        # Clock right-aligned, slightly larger.
-        cs = theme.H1_SCALE
-        ctw = len(self.clock) * 8 * cs
-        cx = self.x + self.w - ctw
-        cy = self.y + (self.h - 8 * cs) // 2
-        disp.text(self.clock, cx, cy, theme.FG, cs)
-
-        # Wi-Fi icon just left of the time.
-        isize = 28
-        ix = cx - 14 - isize
-        iy = self.y + (self.h - isize) // 2
-        icons.draw(disp, "wifi", ix, iy, isize)
-
-        # Connected SSID (truncated) to the left of the icon.
-        if self.ssid:
-            ss = _trim(self.ssid, 14)
-            stw = len(ss) * 8 * theme.BODY_SCALE
-            sx = ix - 12 - stw
-            sy = self.y + (self.h - 8 * theme.BODY_SCALE) // 2
-            disp.text(ss, sx, sy, theme.FG_MUTED, theme.BODY_SCALE)

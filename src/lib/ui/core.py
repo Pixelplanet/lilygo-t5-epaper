@@ -167,10 +167,9 @@ class Screen:
         self._dirty_add = []    # rects needing additive draw only (instant)
         # Periodic tick: if > 0, the App loop calls on_tick() every tick_ms
         # milliseconds while this screen is active (used e.g. for the clock).
-        self.tick_ms = 0
-        # Optional Wi-Fi indicator in the title bar. None = hidden, otherwise
-        # one of "on" / "wait" / "off".
-        self.wifi_state = None
+        self.tick_ms = 15000    # update title-bar status every 15s by default
+        self._cached_clock = "--:--"
+        self._mins_since_full = 0
 
     def add(self, widget):
         widget.screen = self
@@ -194,6 +193,26 @@ class Screen:
 
         Only invoked when tick_ms > 0. Keep it light and non-blocking."""
         pass
+
+    async def _tick_status(self):
+        """Update the cached clock and invalidate the title-bar status area.
+
+        Called automatically by the App loop every 15s, separate from on_tick,
+        so every screen gets a title-bar status update without having to
+        override anything."""
+        from lib import netconn
+
+        if self.app.board is None:
+            return
+        try:
+            dt = await self.app.board.rtc.datetime()
+            if dt:
+                self._cached_clock = "{:02d}:{:02d}".format(dt[4], dt[5])
+        except Exception:
+            pass
+
+        # Invalidate the status area so it redraws on next flush.
+        self.mark_dirty(*self._status_rect(self.app.display), False)
 
     # dirty-rect tracking ------------------------------------------------------
     def mark_dirty(self, x, y, w, h, fast=False):
@@ -223,18 +242,69 @@ class Screen:
         disp.text(self.title, theme.PAD, ty, theme.FG, theme.H1_SCALE)
         disp.hline(theme.PAD, theme.TITLE_BAR_H,
                    disp.width - 2 * theme.PAD, theme.FG_MUTED)
-        if self.wifi_state is not None:
-            x, y, s, _ = self._wifi_rect(disp)
-            _draw_wifi(disp, x, y, s, self.wifi_state)
 
-    def set_wifi_state(self, state):
-        """Show/update the title-bar Wi-Fi indicator and queue a repaint."""
-        if state == self.wifi_state:
-            return
-        self.wifi_state = state
-        x, y, s, _ = self._wifi_rect(self.app.display)
-        # Erase + redraw just the icon area (clear so old bars/slash vanish).
-        self.mark_dirty(x - 2, y - 2, s + 4, s + 4, False)
+        # Clock + Wi-Fi status on every page, to the left of the back button.
+        self._draw_status(disp)
+
+    def _draw_status(self, disp):
+        """Draw clock + Wi-Fi icon + SSID in the title bar (right side)."""
+        from lib import netconn
+
+        # Back button occupies x = d.w - 150 - 12 = 798..948.
+        # Put status area to the left of that: x=480..790.
+        status_x = disp.width - 320   # 960 - 320 = 640
+        status_w = 180                # total width for clock + icon + SSID
+        status_h = theme.TITLE_BAR_H - 4
+
+        # Clock.
+        dt = None
+        try:
+            if self.app.board:
+                import asyncio
+                # Can't await in draw(), use cached time or RTC sync read.
+                pass
+        except Exception:
+            pass
+
+        # Use the launcher's cached clock if available, otherwise "--:--".
+        clock = getattr(self, "_cached_clock", None)
+        if clock is None:
+            clock = "--:--"
+
+        cs = theme.H1_SCALE
+        ctw = len(clock) * 8 * cs
+        cx = status_x + status_w - ctw
+        cy = (theme.TITLE_BAR_H - 8 * cs) // 2
+        disp.text(clock, cx, cy, theme.FG, cs)
+
+        # Wi-Fi icon.
+        isize = 24
+        ix = cx - 8 - isize
+        iy = (theme.TITLE_BAR_H - isize) // 2
+
+        ssid = None
+        try:
+            ssid = netconn.connected_ssid()
+        except Exception:
+            pass
+
+        state = "on" if ssid else "off"
+        _draw_wifi(disp, ix, iy, isize, state)
+
+        # SSID text left of icon.
+        if ssid:
+            def _trim(t, mx):
+                return t if len(t) <= mx else t[:mx - 1] + "~"
+            ss = _trim(ssid, 12)
+            stw = len(ss) * 8 * theme.BODY_SCALE
+            sx = ix - 6 - stw
+            sy = (theme.TITLE_BAR_H - 8 * theme.BODY_SCALE) // 2
+            disp.text(ss, sx, sy, theme.FG_MUTED, theme.BODY_SCALE)
+
+    def _status_rect(self, disp):
+        """Bounding rect of the status area for dirty-rect tracking."""
+        status_x = disp.width - 320
+        return (status_x - 4, 0, 324, theme.TITLE_BAR_H + 4)
 
     def add_back_button(self, on_press=None, label="Back"):
         """Add a uniform Back button in the top-right of the title bar.
@@ -421,12 +491,14 @@ class App:
         await self._activate(first_screen)
         self._pending = []
         last_tick = time.ticks_ms()
+        last_status = time.ticks_ms()
         while self.running:
             if self._next is not None:
                 nxt, self._next = self._next, None
                 await self._activate(nxt)
                 self._pending = []
                 last_tick = time.ticks_ms()
+                last_status = time.ticks_ms()
                 continue
 
             # Dispatch any taps buffered during the last (slow) flush first.
@@ -445,6 +517,12 @@ class App:
                 if time.ticks_diff(now, last_tick) >= tm:
                     last_tick = now
                     await self._screen.on_tick()
+
+            # Title-bar status (clock + Wi-Fi) updates every 15s on every screen.
+            now = time.ticks_ms()
+            if self._next is None and time.ticks_diff(now, last_status) >= 15000:
+                last_status = now
+                await self._screen._tick_status()
 
             if self._next is None:
                 await self.flush()
