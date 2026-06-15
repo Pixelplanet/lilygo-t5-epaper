@@ -22,6 +22,11 @@ VERSION_PATH = "version.json"
 UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/update.json"
 SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/src/"
 
+# Pinned commit SHA — updated by gen_hashes.py.  All OTA downloads use this
+# commit-specific URL so the file content matches the recorded hashes exactly,
+# completely bypassing GitHub's CDN cache on the /master/ branch URL.
+PINNED_COMMIT = "c4216a978ed3721cdbbcaaba45dbb79b8502df93"
+
 
 def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
@@ -186,7 +191,6 @@ async def check(update_url=UPDATE_URL):
         "version": remote_version,
         "description": description,
         "files": changed,
-        "commit": commit,
     }
 
 
@@ -195,9 +199,9 @@ async def download_updates(pending, base_url=SRC_BASE, on_progress=None):
     import asyncio
     import time
 
-    commit = pending.get("commit")
-    if commit:
-        base_url = base_url.replace("/master/", "/" + commit + "/")
+    # Always use the pinned commit for downloads — this guarantees the file
+    # content matches the recorded hash, regardless of CDN caching on /master/.
+    base_url = base_url.replace("/master/", "/" + PINNED_COMMIT + "/")
 
     files = pending["files"]
     total = len(files)
