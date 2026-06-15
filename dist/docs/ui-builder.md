@@ -126,6 +126,7 @@ Two ways to install from a catalog:
   downloads the app's `.py` files alongside `ui.json` (copy each to its listed
   device path).
 - **On the device → Apps tile:** the App Store app connects over Wi-Fi, fetches
-  the catalog, and installs the selected app directly (downloads its files to
-  flash and adds the launcher tile). Set the catalog URL in
-  `apps/appstore.py` (`CATALOG_URL`). Reset the device to see the new app.
+  the catalog, and opens a details page when you tap an app. From there you can
+  **Install** (or **Uninstall** if already installed). Install downloads files
+  to flash and adds/updates the launcher tile. Set the catalog URL in
+  `apps/appstore.py` (`CATALOG_URL`). Reset the device to refresh the launcher.

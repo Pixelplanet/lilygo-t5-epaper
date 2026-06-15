@@ -9,6 +9,7 @@
 #
 # If ui.json is missing, a sensible default registry (the built-in demos) is
 # used so the device still boots into a usable launcher.
+from lib import netconn
 from lib.ui import declarative, icons, theme
 from lib.ui.core import DOWN, UP, Screen, Widget
 
@@ -17,7 +18,9 @@ DEFAULT_APPS = [
      "kind": "builtin", "entry": "calendar_app:open_calendar"},
     {"id": "prices", "name": "Prices", "icon": "bolt",
      "kind": "builtin", "entry": "tibber_app:open_prices"},
-    # Pinned to fixed grid slots in the bottom-right (slots 5, 6 and 7).
+    {"id": "update", "name": "Update", "icon": "gear",
+     "kind": "builtin", "entry": "update_app:open_updater"},
+    # Pinned to fixed grid slots in the bottom row (slots 5, 6 and 7).
     {"id": "store", "name": "Apps", "icon": "gear", "slot": 5,
      "kind": "builtin", "entry": "appstore:open_store"},
     {"id": "wifi", "name": "Wi-Fi", "icon": "wifi", "slot": 6,
@@ -30,6 +33,12 @@ DEFAULT_APPS = [
 GRID_COLS = 4
 GRID_ROWS = 2
 GRID_SLOTS = GRID_COLS * GRID_ROWS
+
+
+def _trim(text, max_len):
+    if len(text) <= max_len:
+        return text
+    return text[:max_len - 1] + "~"
 
 
 def build_app(app):
@@ -86,6 +95,10 @@ class AppTile(Widget):
         icons.draw(disp, self.entry.get("icon", "app"), ix, iy, isize)
         # Label centered near the bottom.
         name = self.entry.get("name", "App")
+        if self.entry.get("id") == "wifi":
+            ssid = netconn.connected_ssid()
+            if ssid:
+                name = _trim(ssid, 12)
         tw = len(name) * 8 * theme.BODY_SCALE
         disp.text(name, self.x + (self.w - tw) // 2,
                   self.y + self.h - 8 * theme.BODY_SCALE - 14,
@@ -109,12 +122,16 @@ class AppTile(Widget):
 class LauncherScreen(Screen):
     def __init__(self, app):
         super().__init__(app, "LilyGo T5 4.7\" Plus")
+        self.tick_ms = 15000
+        self.status = None
         # Cache the parsed config on the app so screens can reach it.
         if not hasattr(app, "_ui_config"):
             app._ui_config = declarative.load_config()
 
     def build(self):
         d = self.app.display
+        self.status = self.add(HomeStatus(d.width - 360, 6, 348,
+                          theme.TITLE_BAR_H - 8))
         apps = (self.app._ui_config.get("apps") if self.app._ui_config
                 else None) or DEFAULT_APPS
         gap = theme.PAD
@@ -150,5 +167,57 @@ class LauncherScreen(Screen):
             tx, ty = slot_xy(slot)
             self.add(AppTile(tx, ty, tile, tile, entry, self._open))
 
+    async def task(self):
+        await self._update_status()
+
+    async def on_tick(self):
+        await self._update_status()
+
+    async def _update_status(self):
+        dt = await self.app.board.rtc.datetime()
+        if dt:
+            clock = "{:02d}:{:02d}".format(dt[4], dt[5])
+        else:
+            clock = "--:--"
+        self.status.set_status(clock, netconn.connected_ssid())
+
     def _open(self, entry):
         _open_app(self.app, entry)
+
+
+class HomeStatus(Widget):
+    """Top-right status strip: clock + Wi-Fi icon + SSID (if connected)."""
+
+    def __init__(self, x, y, w, h):
+        super().__init__(x, y, w, h)
+        self.clock = "--:--"
+        self.ssid = None
+
+    def set_status(self, clock, ssid):
+        if clock == self.clock and ssid == self.ssid:
+            return
+        self.clock = clock
+        self.ssid = ssid
+        self.invalidate(False)
+
+    def draw(self, disp):
+        # Clock right-aligned.
+        cs = theme.BODY_SCALE
+        ctw = len(self.clock) * 8 * cs
+        cx = self.x + self.w - ctw
+        cy = self.y + (self.h - 8 * cs) // 2
+        disp.text(self.clock, cx, cy, theme.FG, cs)
+
+        # Wi-Fi icon just left of the time.
+        isize = 20
+        ix = cx - 12 - isize
+        iy = self.y + (self.h - isize) // 2
+        icons.draw(disp, "wifi", ix, iy, isize)
+
+        # Connected SSID (truncated) to the left of the icon.
+        if self.ssid:
+            ss = _trim(self.ssid, 14)
+            stw = len(ss) * 8 * theme.SMALL_SCALE
+            sx = ix - 10 - stw
+            sy = self.y + (self.h - 8 * theme.SMALL_SCALE) // 2
+            disp.text(ss, sx, sy, theme.FG_MUTED, theme.SMALL_SCALE)

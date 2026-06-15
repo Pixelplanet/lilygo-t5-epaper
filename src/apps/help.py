@@ -14,6 +14,9 @@ SECTIONS = [
      "Hold BOOT during reset to skip the app and get a Python prompt."),
     ("Wi-Fi",
      "Open Wi-Fi once; it reconnects automatically at startup."),
+    ("System updates",
+     "Use the Update app to get new platform versions over Wi-Fi."
+     " No need to reflash."),
     ("Ghosting",
      "In Wi-Fi: Refresh cleans the screen, Repair clears ghosts."),
     ("Add your own apps",

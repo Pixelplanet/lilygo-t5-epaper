@@ -8,23 +8,26 @@
   :root{
     --bg:#1e1f22; --panel:#2b2d31; --panel2:#232428; --line:#3a3d44;
     --fg:#e8e9ec; --muted:#9aa0a8; --accent:#4f8cff; --accent2:#2f6fdb;
-    --canvas:#fafafa; --ink:#111;
+    --canvas:#fafafa; --ink:#111; --warn:#e5a845;
   }
   *{box-sizing:border-box}
-  body{margin:0;font:14px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);height:100vh;display:flex;flex-direction:column}
-  header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--line)}
+  body{margin:0;font:14px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--fg);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+  header{display:flex;align-items:center;gap:12px;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line);flex-shrink:0}
   header h1{font-size:15px;margin:0;font-weight:600}
   header .sp{flex:1}
-  button{font:inherit;color:var(--fg);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer}
+  button{font:inherit;color:var(--fg);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer;white-space:nowrap}
   button:hover{border-color:var(--accent)}
   button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
   button.primary:hover{background:var(--accent2)}
   button.danger:hover{border-color:#e5534b;color:#e5534b}
-  main{flex:1;display:flex;min-height:0}
+  button.warn{background:var(--warn);border-color:var(--warn);color:#111}
+  button.warn:hover{opacity:.85}
+  main{flex:1;display:flex;min-height:0;overflow:hidden}
   .col{display:flex;flex-direction:column;min-height:0}
-  .left{width:240px;background:var(--panel);border-right:1px solid var(--line);overflow:auto}
-  .right{width:300px;background:var(--panel);border-left:1px solid var(--line);overflow:auto}
-  .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;overflow:auto}
+  .left{width:250px;background:var(--panel);border-right:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+  .left-scroll{flex:1;overflow:auto}
+  .right{width:320px;background:var(--panel);border-left:1px solid var(--line);overflow:auto;flex-shrink:0}
+  .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px;overflow:auto;background:var(--bg)}
   .section{padding:12px;border-bottom:1px solid var(--line)}
   .section h2{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:0 0 8px}
   .list{display:flex;flex-direction:column;gap:4px}
@@ -37,30 +40,37 @@
   .field{margin-bottom:10px}
   .field label{display:block;font-size:11px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em}
   .field input,.field select{width:100%;padding:6px 8px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;color:var(--fg)}
+  .field .help{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3}
   .row2{display:flex;gap:8px}
   .row2 .field{flex:1}
-  #stageWrap{background:#0c0d10;padding:10px;border-radius:8px;border:1px solid var(--line)}
-  #stage{position:relative;width:960px;height:540px;background:var(--canvas);transform-origin:top left;overflow:hidden;border-radius:4px}
+  #stageWrap{background:#0c0d10;padding:10px;border-radius:8px;border:1px solid var(--line);flex-shrink:0}
+  #stage{position:relative;width:960px;height:540px;background:var(--canvas);transform-origin:top left;overflow:hidden;border-radius:4px;cursor:crosshair}
   .wz{position:absolute;cursor:move;user-select:none}
   .wz.sel{outline:2px solid var(--accent);outline-offset:1px}
   .titlebar{position:absolute;left:0;top:0;width:960px;height:58px;border-bottom:2px solid #888;color:#111;display:flex;align-items:center;padding:0 12px;font-weight:700;font-size:24px}
   .titlebar .back{position:absolute;right:12px;top:4px;width:150px;height:50px;border:2px solid #111;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:400}
   .hint{color:var(--muted);font-size:12px}
   .tabs{display:flex;gap:6px;margin-bottom:10px}
-  .tabs button{flex:1}
+  .tabs button{flex:1;font-size:12px}
   .tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
   .iconbox{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1px solid var(--line);border-radius:5px;background:#fff}
-  textarea{width:100%;height:120px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;font:12px monospace;padding:8px}
+  textarea{width:100%;height:120px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;font:12px monospace;padding:8px;resize:vertical}
   .scaleNote{font-size:11px;color:var(--muted);margin-top:6px}
+  .info-box{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:10px;margin-top:8px;font-size:12px;line-height:1.5}
+  .info-box code{background:var(--bg);padding:1px 5px;border-radius:3px;font-size:11px}
+  .info-box a{color:var(--accent)}
+  .grid-overlay{position:absolute;pointer-events:none;z-index:10}
+  .grid-overlay line{stroke:#ccc;stroke-dasharray:4,6;stroke-width:.5}
+  .grid-overlay text{fill:#aaa;font-size:9px;font-family:monospace}
 </style>
 </head>
 <body>
 <header>
-  <h1>LilyGo T5 4.7" UI Builder</h1>
-  <span class="hint">960 × 540 landscape · grayscale e-paper</span>
+  <h1>&#9636; LilyGo T5 4.7" UI Builder</h1>
+  <span class="hint">960&times;540 landscape &middot; grayscale e-paper</span>
   <span class="sp"></span>
+  <button onclick="toggleGuide()" id="guideBtn" class="warn">? Integration Guide</button>
   <input id="importFile" type="file" accept="application/json" style="display:none">
-  <input id="catalogFile" type="file" accept="application/json" style="display:none">
   <button onclick="document.getElementById('importFile').click()">Import ui.json</button>
   <button class="primary" onclick="exportConfig()">Export bundle</button>
 </header>
@@ -68,68 +78,115 @@
 <main>
   <!-- LEFT: apps + screens + catalog -->
   <div class="col left">
-    <div class="section">
-      <div class="tabs">
-        <button id="tabApps" class="on" onclick="setTab('apps')">Apps</button>
-        <button id="tabScreens" onclick="setTab('screens')">Screens</button>
-        <button id="tabCatalog" onclick="setTab('catalog')">Catalog</button>
-      </div>
-      <div id="appsPane">
-        <div class="list" id="appList"></div>
-        <button style="width:100%;margin-top:8px" onclick="addApp()">+ Add app tile</button>
-      </div>
-      <div id="screensPane" style="display:none">
-        <div class="list" id="screenList"></div>
-        <button style="width:100%;margin-top:8px" onclick="addScreen()">+ Add screen</button>
-      </div>
-      <div id="catalogPane" style="display:none">
-        <div class="field"><label>Catalog URL</label><input id="catUrl" value="https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/main/apps-catalog/index.json"></div>
-        <div class="row2">
-          <button style="flex:1" onclick="loadCatalogUrl()">Load URL</button>
-          <button style="flex:1" onclick="document.getElementById('catalogFile').click()">Load file…</button>
+    <div class="left-scroll">
+      <!-- Guide panel (collapsible) -->
+      <div id="guidePanel" class="section" style="display:none;background:var(--bg)">
+        <h2>&#9432; Integration Guide</h2>
+        <div class="info-box">
+          <strong>What this builder does:</strong> Creates <code>ui.json</code> &mdash;
+          the launcher configuration and declarative screen definitions.
         </div>
-        <div class="list" id="catalogList" style="margin-top:10px"><p class="hint">Load a catalog to browse apps.</p></div>
+        <div class="info-box" style="margin-top:6px">
+          <strong>What it doesn't do:</strong> Create Python apps. For custom logic
+          (network calls, dynamic lists, keyboards), build a Python app instead.
+          See <a href="#" onclick="return openDoc('docs/custom-apps.md')">custom app docs</a>.
+        </div>
+        <div class="info-box" style="margin-top:6px">
+          <strong>After export:</strong>
+          <ol style="margin:4px 0;padding-left:18px">
+            <li>Save <code>ui.json</code> to device flash root</li>
+            <li>Deploy any catalog app <code>.py</code> files</li>
+            <li>Reset the board</li>
+          </ol>
+          Full details: <a href="#" onclick="return openDoc('docs/manual-ui-pages.md')">manual UI pages guide</a>.
+        </div>
+        <div class="info-box" style="margin-top:6px">
+          <strong>Device paths:</strong> All apps live in <code>apps/</code> on the flash.
+          Built-in entries use format <code>module:function</code> (e.g.,
+          <code>wifi_demo:HomeScreen</code>). Module <code>my_app</code> is imported as
+          <code>apps.my_app</code>.
+        </div>
+        <div class="info-box" style="margin-top:6px">
+          <strong>Hooks:</strong> Button actions like <code>hook:say_hi</code> call Python
+          callbacks registered in <code>src/user_hooks.py</code>. Give widgets an
+          <code>id</code> so hooks can find and update them.
+        </div>
+        <button style="width:100%;margin-top:8px" onclick="toggleGuide()">Close guide</button>
       </div>
-    </div>
-    <div class="section" id="paletteSection" style="display:none">
-      <h2>Add widget</h2>
-      <div class="palette">
-        <button onclick="addWidget('label')">Label</button>
-        <button onclick="addWidget('button')">Button</button>
-        <button onclick="addWidget('progress')">Progress</button>
+
+      <div class="section">
+        <div class="tabs">
+          <button id="tabApps" class="on" onclick="setTab('apps')">Apps</button>
+          <button id="tabScreens" onclick="setTab('screens')">Screens</button>
+          <button id="tabCatalog" onclick="setTab('catalog')">Catalog</button>
+        </div>
+        <div id="appsPane">
+          <div class="list" id="appList"></div>
+          <button style="width:100%;margin-top:8px" onclick="addApp()">+ Add app tile</button>
+        </div>
+        <div id="screensPane" style="display:none">
+          <div class="list" id="screenList"></div>
+          <button style="width:100%;margin-top:8px" onclick="addScreen()">+ Add screen</button>
+        </div>
+        <div id="catalogPane" style="display:none">
+          <div class="field"><label>Catalog URL</label><input id="catUrl" value="https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/main/apps-catalog/index.json"></div>
+          <div class="row2">
+            <button style="flex:1" onclick="loadCatalogUrl()">Load URL</button>
+            <button style="flex:1" onclick="document.getElementById('catalogFile').click()">Load file&hellip;</button>
+          </div>
+          <div class="list" id="catalogList" style="margin-top:10px"><p class="hint">Load a catalog to browse community apps.</p></div>
+        </div>
       </div>
-      <p class="scaleNote">Drag widgets on the canvas to position them.</p>
+      <div class="section" id="paletteSection" style="display:none">
+        <h2>Add widget</h2>
+        <div class="palette">
+          <button onclick="addWidget('label')">Label</button>
+          <button onclick="addWidget('button')">Button</button>
+          <button onclick="addWidget('progress')">Progress</button>
+        </div>
+        <p class="scaleNote">Drag widgets on the canvas to position. Click any widget to edit its properties.</p>
+        <p class="scaleNote" style="color:var(--warn)">For TextField, ListView, or Keyboard &mdash; write a Python app instead.</p>
+      </div>
     </div>
   </div>
 
   <!-- CENTER: canvas -->
-  <div class="center">
+  <div class="center" id="centerCol">
     <div id="editorTitle" class="hint">Select or add a screen to edit its layout.</div>
     <div id="stageWrap">
       <div id="stage"></div>
     </div>
-    <div class="hint">Tip: click a widget to edit it on the right. Use the home tab to arrange app icons.</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <label style="font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;cursor:pointer">
+        <input type="checkbox" id="showSafe" onchange="toggleSafeArea()"> Show safe area
+      </label>
+      <span class="hint">Tip: click a widget to edit it. Use the home tab to arrange apps.</span>
+    </div>
   </div>
 
   <!-- RIGHT: properties -->
   <div class="col right">
     <div class="section">
       <h2 id="propTitle">Properties</h2>
-      <div id="props"><p class="hint">Nothing selected.</p></div>
+      <div id="props"><p class="hint">Nothing selected. Select an app tile or widget to edit.</p></div>
     </div>
   </div>
 </main>
+
+<input id="catalogFile" type="file" accept="application/json" style="display:none">
 
 <script>
 // ---- Model --------------------------------------------------------------
 const ICONS = ["wifi","calendar","bolt","star","gear","help","app"];
 const SCALES = ["title","h1","body","small"];
-const COLORS = ["fg","muted","accent","surface","black","dark","gray","light"];
+const COLORS = ["fg","muted","accent","surface","black","dark","gray","light","white","bg"];
 const BUILTINS = {
   "wifi_demo:HomeScreen":"Wi-Fi setup",
   "calendar_app:open_calendar":"Trash calendar",
   "tibber_app:open_prices":"Electricity prices",
   "help:open_help":"Help",
+  "appstore:open_store":"App store",
+  "update_app:open_updater":"System update (OTA)",
 };
 
 let config = defaultConfig();
@@ -149,6 +206,21 @@ function defaultConfig(){
     ],
     screens:{}
   };
+}
+
+function toggleGuide(){
+  const panel=document.getElementById('guidePanel');
+  const btn=document.getElementById('guideBtn');
+  const show=panel.style.display==='none';
+  panel.style.display=show?'':'none';
+  btn.textContent=show?'✕ Close Guide':'? Integration Guide';
+}
+function toggleSafeArea(){
+  document.getElementById('safeOverlay').style.display=document.getElementById('showSafe').checked?'':'none';
+}
+function openDoc(path){
+  window.open('https://github.com/Pixelplanet/lilygo-t5-epaper/blob/main/'+path,'_blank');
+  return false;
 }
 
 // ---- Icon SVGs (rough match to device icons) ----------------------------
@@ -203,12 +275,13 @@ function renderCatalog(){
     const installed=config.apps.some(x=>x.id===a.id);
     const d=document.createElement('div');
     d.className='item'; d.style.cssText+='flex-direction:column;align-items:stretch;gap:4px';
-    d.innerHTML=`<div style="display:flex;align-items:center;gap:8px"><span class="iconbox">${iconSVG(a.icon)}</span><span class="nm">${a.name}</span></div>
-      <small style="color:var(--muted)">${a.description||''}</small>
-      <small style="color:var(--muted)">by ${a.author||'unknown'} · ${(a.files||[]).length} file(s)</small>
-      <button ${installed?'disabled':''} onclick='addFromCatalog(${JSON.stringify(a).replace(/'/g,"&#39;")})'>${installed?'Added':'Add to device'}</button>`;
+    d.innerHTML=`<div style="display:flex;align-items:center;gap:8px"><span class="iconbox">${iconSVG(a.icon)}</span><span class="nm" style="font-weight:600">${esc(a.name)}</span></div>
+      <small style="color:var(--muted)">${esc(a.description||'(no description)')}</small>
+      <small style="color:var(--muted)">by ${esc(a.author||'unknown')} &middot; ${(a.files||[]).length} file(s)</small>
+      <button ${installed?'disabled':''} onclick='addFromCatalog(${JSON.stringify(a).replace(/'/g,"&#39;")})'>${installed?'&#10003; Added':'Add to device'}</button>`;
     el.appendChild(d);
   });
+  el.innerHTML+='<p class="scaleNote" style="margin-top:8px">To publish your own app, edit <code>apps-catalog/index.json</code> and open a PR.</p>';
 }
 function addFromCatalog(a){
   if(config.apps.some(x=>x.id===a.id)) return;
@@ -228,7 +301,8 @@ function renderAppList(){
   config.apps.forEach((a,i)=>{
     const d=document.createElement('div');
     d.className='item'+(selApp===i&&tab==='apps'?' active':'');
-    d.innerHTML=`<span class="iconbox">${iconSVG(a.icon)}</span><span class="nm">${a.name||a.id}</span>`;
+    const kindLabel=a.kind==='screen'?'→ '+esc(a.screen||'?'):'builtin: '+esc(a.entry||'?');
+    d.innerHTML=`<span class="iconbox">${iconSVG(a.icon)}</span><span class="nm">${esc(a.name||a.id)}</span><small>${kindLabel}</small>`;
     d.onclick=()=>{selApp=i;selWidget=null;renderAll();};
     el.appendChild(d);
   });
@@ -240,7 +314,7 @@ function renderScreenList(){
     const s=config.screens[id];
     const d=document.createElement('div');
     d.className='item'+(selScreen===id?' active':'');
-    d.innerHTML=`<span class="nm">${s.title||id}</span><small>${(s.widgets||[]).length}w</small>`;
+    d.innerHTML=`<span class="nm">${esc(s.title||id)}</span><small>${(s.widgets||[]).length}w</small>`;
     d.onclick=()=>{selScreen=id;selWidget=null;document.getElementById('paletteSection').style.display='';renderAll();};
     el.appendChild(d);
   });
@@ -251,12 +325,20 @@ function renderStage(){
   const stage=document.getElementById('stage');
   // scale to fit
   const wrap=document.getElementById('stageWrap');
-  const maxW=Math.min(960, wrap.parentElement.clientWidth-60);
+  const maxW=Math.min(960, (document.getElementById('centerCol')||wrap.parentElement).clientWidth-80);
   const scale=Math.min(1, maxW/960);
   stage.style.transform=`scale(${scale})`;
   wrap.style.width=(960*scale+20)+'px';
   wrap.style.height=(540*scale+20)+'px';
   stage.innerHTML='';
+
+  // safe area overlay
+  const overlay=document.createElement('div');
+  overlay.className='grid-overlay';
+  overlay.id='safeOverlay';
+  overlay.style.display=document.getElementById('showSafe').checked?'':'none';
+  overlay.innerHTML='<line x1="0" y1="58" x2="960" y2="58" stroke="#e5534b" stroke-dasharray="8,4" stroke-width="1.5"/><text x="4" y="54" fill="#e5534b" font-size="10" font-family="monospace">title bar (y=0..57) — keep widgets at y≥58</text><text x="800" y="54" fill="#e5534b" font-size="10" font-family="monospace">[Back btn 810-960]</text><text x="4" y="534" fill="#aaa" font-size="9" font-family="monospace">960 × 540 grayscale</text>';
+  stage.appendChild(overlay);
 
   // title bar
   const tb=document.createElement('div'); tb.className='titlebar';
@@ -265,9 +347,9 @@ function renderStage(){
   if(selScreen){ const b=document.createElement('div'); b.className='back'; b.textContent='Back'; tb.appendChild(b); }
   stage.appendChild(tb);
 
-  if(tab==='apps'){ renderHomeTiles(stage); document.getElementById('editorTitle').textContent='Home screen — drag tiles to reorder is automatic; edit names/icons on the right.'; return; }
-  if(!selScreen){ document.getElementById('editorTitle').textContent='Select or add a screen.'; return; }
-  document.getElementById('editorTitle').textContent='Editing screen: '+selScreen;
+  if(tab==='apps'){ renderHomeTiles(stage); document.getElementById('editorTitle').textContent='Home screen — drag tiles to snap to grid slots. Select a tile to edit it on the right.'; return; }
+  if(!selScreen){ document.getElementById('editorTitle').textContent='Select a screen or add one to begin.'; return; }
+  document.getElementById('editorTitle').textContent='Editing screen: '+esc(config.screens[selScreen].title||selScreen);
   const s=config.screens[selScreen];
   (s.widgets||[]).forEach((w,i)=>stage.appendChild(makeWidgetEl(w,i)));
 }
@@ -309,7 +391,7 @@ function homeTile(a,i,x,y,sz,pinnedTile){
   d.className='wz'+(selApp===i?' sel':'');
   const k=sz/225;
   d.style.cssText=`left:${x}px;top:${y}px;width:${sz}px;height:${sz}px;border:2px solid #111;border-radius:14px;background:${pinnedTile?'#e3e8f0':'#eee'};display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:${pinnedTile?'move':'pointer'};color:#111`;
-  d.innerHTML=`<div style="transform:scale(${k*4});margin-bottom:${20*k}px">${iconSVG(a.icon)}</div><div style="font-size:${18*k}px">${a.name||a.id}</div>`;
+  d.innerHTML=`<div style="transform:scale(${k*4});margin-bottom:${20*k}px">${iconSVG(a.icon)}</div><div style="font-size:${18*k}px;text-align:center;max-width:90%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(a.name||a.id)}</div>`;
   if(pinnedTile){ d.onmousedown=(e)=>startTileDrag(e,i,d); }
   else { d.onclick=()=>{selApp=i;renderAll();}; }
   return d;
@@ -356,12 +438,19 @@ function makeWidgetEl(w,i){
     d.style.width=ww+'px'; d.style.height=hh+'px';
     d.style.cssText+=`;border:2px solid #111;border-radius:10px;background:#eee;display:flex;align-items:center;justify-content:center;color:#111;font:${px}px monospace`;
     d.textContent=w.text||'Button';
+    // Show action hint on the button
+    if(w.action){
+      const hint=document.createElement('small');
+      hint.style.cssText='position:absolute;bottom:2px;right:6px;font-size:8px;color:#888';
+      hint.textContent=w.action.length>20?w.action.slice(0,18)+'…':w.action;
+      d.appendChild(hint);
+    }
   } else if(w.type==='progress'){
     const ww=w.w||400,hh=w.h||40;
     d.style.width=ww+'px'; d.style.height=hh+'px';
     d.style.cssText+=`;border:2px solid #111;background:#fff`;
     const fill=document.createElement('div');
-    fill.style.cssText=`height:100%;width:${(w.value||0)}%;background:#555`;
+    fill.style.cssText=`height:100%;width:${(w.value||0)}%;background:#555;transition:width .2s`;
     d.appendChild(fill);
   }
   d.onmousedown=(e)=>startDrag(e,i,d);
@@ -399,27 +488,27 @@ function renderRight(){
   const box=document.getElementById('props');
   const title=document.getElementById('propTitle');
   if(tab==='apps'){
-    if(selApp==null){ title.textContent='App tile'; box.innerHTML='<p class="hint">Select an app tile.</p>'; return; }
+    if(selApp==null){ title.textContent='App tile'; box.innerHTML='<p class="hint">Select an app tile from the left list or the home preview.</p>'; return; }
     title.textContent='App tile';
     const a=config.apps[selApp];
     const screenOpts=Object.keys(config.screens).map(id=>`<option value="${id}" ${a.screen===id?'selected':''}>${id}</option>`).join('');
-    const builtinOpts=Object.keys(BUILTINS).map(k=>`<option value="${k}" ${a.entry===k?'selected':''}>${BUILTINS[k]}</option>`).join('');
+    const builtinOpts=Object.keys(BUILTINS).map(k=>`<option value="${k}" ${a.entry===k?'selected':''}>${esc(BUILTINS[k])}</option>`).join('');
     box.innerHTML=`
-      <div class="field"><label>Name</label><input id="pName" value="${esc(a.name||'')}"></div>
-      <div class="field"><label>Id</label><input id="pId" value="${esc(a.id||'')}"></div>
+      <div class="field"><label>Name</label><input id="pName" value="${esc(a.name||'')}"><div class="help">Displayed under the icon on the home tile.</div></div>
+      <div class="field"><label>Id</label><input id="pId" value="${esc(a.id||'')}"><div class="help">Unique identifier. Used internally, not shown to users.</div></div>
       <div class="field"><label>Icon</label><select id="pIcon">${ICONS.map(n=>`<option ${a.icon===n?'selected':''}>${n}</option>`).join('')}</select></div>
       <div class="field"><label>Opens</label><select id="pKind">
-        <option value="builtin" ${a.kind!=='screen'?'selected':''}>Built-in app</option>
-        <option value="screen" ${a.kind==='screen'?'selected':''}>Custom screen</option></select></div>
-      <div class="field" id="builtinWrap" style="${a.kind==='screen'?'display:none':''}"><label>Built-in</label><select id="pEntry">${builtinOpts}</select></div>
-      <div class="field" id="screenWrap" style="${a.kind==='screen'?'':'display:none'}"><label>Screen</label><select id="pScreen">${screenOpts||'<option value="">(add a screen first)</option>'}</select></div>
+        <option value="builtin" ${a.kind!=='screen'?'selected':''}>Built-in app (Python)</option>
+        <option value="screen" ${a.kind==='screen'?'selected':''}>Custom screen (ui.json)</option></select></div>
+      <div class="field" id="builtinWrap" style="${a.kind==='screen'?'display:none':''}"><label>Entry point</label><select id="pEntry">${builtinOpts}</select><div class="help">Format: <code>module:function</code>. Module is imported as <code>apps.&lt;module&gt;</code>.</div></div>
+      <div class="field" id="screenWrap" style="${a.kind==='screen'?'':'display:none'}"><label>Target screen</label><select id="pScreen">${screenOpts||'<option value="">(add a screen first)</option>'}</select><div class="help">The screen ID to open when this tile is tapped.</div></div>
       <div class="field"><label>Placement</label><select id="pPlace">
         <option value="auto" ${a.slot==null?'selected':''}>Auto (next free slot)</option>
-        <option value="fixed" ${a.slot!=null?'selected':''}>Fixed slot (drag to snap)</option></select></div>
+        <option value="fixed" ${a.slot!=null?'selected':''}>Fixed slot (drag on home)</option></select></div>
       <div class="field" id="fixedWrap" style="${a.slot!=null?'':'display:none'}">
         <label>Slot (0-7, row-major)</label>
         <select id="aSlot">${[0,1,2,3,4,5,6,7].map(s=>`<option value="${s}" ${a.slot===s?'selected':''}>${s} (row ${Math.floor(s/4)+1}, col ${s%4+1})</option>`).join('')}</select>
-        <p class="scaleNote">Or drag the tile on the home preview — it snaps to the nearest slot.</p>
+        <div class="help">Or drag the tile on the home preview — it snaps to the nearest slot.</div>
       </div>
       <button class="danger" onclick="delApp()">Delete tile</button>`;
     const upd=()=>{
@@ -437,44 +526,45 @@ function renderRight(){
     return;
   }
   // screens tab
-  if(selWidget==null||!selScreen){ title.textContent='Properties'; box.innerHTML='<p class="hint">Select a widget, or edit the screen below.</p>'+screenMetaForm(); bindScreenMeta(); return; }
+  if(selWidget==null||!selScreen){ title.textContent='Properties'; box.innerHTML='<p class="hint">Click a widget on the canvas to edit, or adjust screen settings below.</p>'+screenMetaForm(); bindScreenMeta(); return; }
   title.textContent='Widget · '+config.screens[selScreen].widgets[selWidget].type;
   const w=config.screens[selScreen].widgets[selWidget];
   let html=`
     <div class="row2">
-      <div class="field"><label>X</label><input id="wX" type="number" value="${w.x||0}"></div>
-      <div class="field"><label>Y</label><input id="wY" type="number" value="${w.y||0}"></div>
+      <div class="field"><label>X</label><input id="wX" type="number" value="${w.x||0}" min="0" max="959"><div class="help">0–959</div></div>
+      <div class="field"><label>Y</label><input id="wY" type="number" value="${w.y||0}" min="0" max="539"><div class="help">Keep ≥58 (below title bar)</div></div>
     </div>`;
   if(w.type==='label'){
     html+=`<div class="field"><label>Text</label><input id="wText" value="${esc(w.text||'')}"></div>
       <div class="row2">
         <div class="field"><label>Scale</label><select id="wScale">${SCALES.map(s=>`<option ${w.scale===s?'selected':''}>${s}</option>`).join('')}</select></div>
         <div class="field"><label>Color</label><select id="wColor">${COLORS.map(c=>`<option ${w.color===c?'selected':''}>${c}</option>`).join('')}</select></div>
-      </div>`;
+      </div>
+      <div class="help">Scale: small=8px, body=16px, h1=24px, title=32px. Colors are grayscale shades.</div>`;
   } else if(w.type==='button'){
     html+=`<div class="field"><label>Text</label><input id="wText" value="${esc(w.text||'')}"></div>
       <div class="row2">
-        <div class="field"><label>W</label><input id="wW" type="number" value="${w.w||300}"></div>
-        <div class="field"><label>H</label><input id="wH" type="number" value="${w.h||72}"></div>
+        <div class="field"><label>W</label><input id="wW" type="number" value="${w.w||300}" min="10" max="960"></div>
+        <div class="field"><label>H</label><input id="wH" type="number" value="${w.h||72}" min="10" max="540"></div>
       </div>
       <div class="field"><label>Scale</label><select id="wScale">${SCALES.map(s=>`<option ${w.scale===s?'selected':''}>${s}</option>`).join('')}</select></div>
       <div class="field"><label>Action</label><select id="wActKind">
-        <option value="none" ${!w.action?'selected':''}>None</option>
-        <option value="menu" ${w.action==='menu'?'selected':''}>Back to home</option>
+        <option value="none" ${!w.action?'selected':''}>None (inert)</option>
+        <option value="menu" ${w.action==='menu'?'selected':''}>Back to home (menu)</option>
         <option value="screen" ${(w.action||'').startsWith('screen:')?'selected':''}>Open screen…</option>
         <option value="hook" ${(w.action||'').startsWith('hook:')?'selected':''}>Run Python hook…</option>
-      </select></div>
+      </select><div class="help">menu=launcher, screen:=another ui.json screen, hook:=callback in user_hooks.py</div></div>
       <div class="field" id="actArgWrap" style="display:${(w.action||'').includes(':')?'':'none'}">
         <label id="actArgLbl">Target</label><input id="wActArg" value="${esc((w.action||'').split(':')[1]||'')}">
       </div>`;
   } else if(w.type==='progress'){
     html+=`<div class="row2">
-        <div class="field"><label>W</label><input id="wW" type="number" value="${w.w||400}"></div>
-        <div class="field"><label>H</label><input id="wH" type="number" value="${w.h||40}"></div>
+        <div class="field"><label>W</label><input id="wW" type="number" value="${w.w||400}" min="10" max="960"></div>
+        <div class="field"><label>H</label><input id="wH" type="number" value="${w.h||40}" min="4" max="540"></div>
       </div>
-      <div class="field"><label>Value (0-100)</label><input id="wValue" type="number" value="${w.value||0}"></div>`;
+      <div class="field"><label>Value (0–100)</label><input id="wValue" type="number" value="${w.value||0}" min="0" max="100"></div>`;
   }
-  html+=`<div class="field"><label>Widget id (optional, for hooks)</label><input id="wId" value="${esc(w.id||'')}"></div>
+  html+=`<div class="field"><label>Widget id (for hooks)</label><input id="wId" value="${esc(w.id||'')}" placeholder="e.g. status_msg"><div class="help">Optional. Give it a name so Python hooks can find it with <code>screen.find("id")</code>.</div></div>
     <button class="danger" onclick="delWidget()">Delete widget</button>`;
   box.innerHTML=html;
   const upd=()=>{
@@ -502,9 +592,10 @@ function screenMetaForm(){
   if(!selScreen) return '';
   const s=config.screens[selScreen];
   return `<div class="section" style="border:0;padding:14px 0 0">
-    <h2>Screen</h2>
-    <div class="field"><label>Title</label><input id="sTitle" value="${esc(s.title||'')}"></div>
-    <div class="field"><label>Screen id</label><input id="sId" value="${esc(selScreen)}"></div>
+    <h2>Screen settings</h2>
+    <div class="field"><label>Title</label><input id="sTitle" value="${esc(s.title||'')}"><div class="help">Shown in the title bar at the top of the screen.</div></div>
+    <div class="field"><label>Screen id</label><input id="sId" value="${esc(selScreen)}"><div class="help">Used in app tiles and button actions: <code>screen:&lt;id&gt;</code>.</div></div>
+    <div class="field"><label>Show back button</label><select id="sBack"><option value="1" ${s.back!==false?'selected':''}>Yes</option><option value="0" ${s.back===false?'selected':''}>No</option></select></div>
     <button class="danger" onclick="delScreen()">Delete screen</button></div>`;
 }
 function bindScreenMeta(){
@@ -516,6 +607,7 @@ function bindScreenMeta(){
     config.apps.forEach(a=>{if(a.screen===selScreen)a.screen=nid;});
     selScreen=nid; renderAll();
   };
+  document.getElementById('sBack').onchange=()=>{config.screens[selScreen].back=val('sBack')==='1';};
 }
 function syncPosFields(x,y){ if(has('wX')){document.getElementById('wX').value=x;document.getElementById('wY').value=y;} }
 
@@ -525,19 +617,19 @@ function addApp(){
   config.apps.push({id:'app'+n,name:'App '+n,icon:'app',kind:'screen',screen:''});
   selApp=config.apps.length-1; tab='apps'; setTab('apps'); selApp=config.apps.length-1; renderAll();
 }
-function delApp(){ config.apps.splice(selApp,1); selApp=null; renderAll(); }
+function delApp(){ if(!confirm('Delete this app tile?'))return; config.apps.splice(selApp,1); selApp=null; renderAll(); }
 function addScreen(){
   let i=1; while(config.screens['screen'+i])i++;
   const id='screen'+i;
   config.screens[id]={title:'New screen',back:true,widgets:[]};
   selScreen=id; selWidget=null; setTab('screens'); selScreen=id; renderAll();
 }
-function delScreen(){ delete config.screens[selScreen]; selScreen=null; selWidget=null; renderAll(); }
+function delScreen(){ if(!confirm('Delete screen "'+selScreen+'" and all its widgets?'))return; delete config.screens[selScreen]; selScreen=null; selWidget=null; renderAll(); }
 function addWidget(type){
   if(!selScreen)return;
-  const base={type,x:12,y:90};
+  const base={type,x:12,y:88};
   if(type==='label'){base.text='Text';base.scale='body';base.color='fg';}
-  if(type==='button'){base.text='Button';base.w=300;base.h=72;base.scale='h1';}
+  if(type==='button'){base.text='Button';base.w=300;base.h=72;base.scale='h1';base.action='menu';}
   if(type==='progress'){base.w=400;base.h=40;base.value=50;}
   config.screens[selScreen].widgets.push(base);
   selWidget=config.screens[selScreen].widgets.length-1; renderAll();
@@ -553,7 +645,7 @@ async function exportConfig(){
   // Try to fetch + download any catalog app files so the user gets everything.
   const files=Object.keys(bundleFiles);
   if(!files.length){
-    alert('Exported ui.json. Copy it to the device flash root and reset.');
+    alert('Exported ui.json!\n\nTo deploy:\n  1. Copy ui.json to device flash root\n  2. Run tools/deploy.ps1\n  3. Reset the board');
     return;
   }
   let ok=0, manual=[];
@@ -565,10 +657,13 @@ async function exportConfig(){
       // Download with a flat name; user puts it at the device path `f`.
       download(f.split('/').pop(), txt, 'text/x-python');
       ok++;
-    }catch(_){ manual.push(f+'  <-  '+src); }
+    }catch(_){ manual.push(f+'  ←  '+src); }
   }
-  let msg='Exported ui.json + '+ok+' app file(s).\nPut each .py at its device path:\n'+files.join('\n');
-  if(manual.length) msg+='\n\nCouldn\'t auto-download (fetch/CORS) — get these manually:\n'+manual.join('\n');
+  let msg='Exported:\n  • ui.json\n';
+  if(ok) msg+='  • '+ok+' app file(s)\n';
+  msg+='\nTo deploy:\n  1. Copy all files to device flash root\n  2. Run tools/deploy.ps1\n  3. Reset the board';
+  if(manual.length) msg+='\n\n⚠ Couldn\'t auto-download (CORS) — get these manually:\n'+manual.join('\n');
+  else msg+='\n\nAll files downloaded automatically!';
   alert(msg);
 }
 function download(name, text, mime){
@@ -586,14 +681,16 @@ document.getElementById('importFile').onchange=(e)=>{
 
 // ---- helpers ------------------------------------------------------------
 function scalePx(s){ return {title:32,h1:24,body:16,small:8}[s]||16; }
-function colorHex(c){ return {fg:'#111',muted:'#777',accent:'#333',surface:'#ddd',black:'#000',dark:'#444',gray:'#888',light:'#bbb',white:'#fff'}[c]||'#111'; }
-function esc(s){ return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
-function val(id){ return document.getElementById(id).value; }
+function colorHex(c){ return {fg:'#111',muted:'#777',accent:'#333',surface:'#ddd',black:'#000',dark:'#444',gray:'#888',light:'#bbb',white:'#fff',bg:'#fff'}[c]||'#111'; }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function val(id){ var e=document.getElementById(id); return e?e.value:''; }
 function int(id){ return parseInt(document.getElementById(id).value||'0',10)||0; }
 function has(id){ return !!document.getElementById(id); }
 function renderAll(){ renderAppList(); renderScreenList(); if(tab==='catalog')renderCatalog(); renderStage(); renderRight(); document.getElementById('paletteSection').style.display=(tab==='screens'&&selScreen)?'':'none'; }
 window.addEventListener('resize',renderStage);
 setTab('apps');
+// Auto-show guide on first visit
+if(!localStorage.getItem('t5_guide_seen')){ setTimeout(toggleGuide,500); localStorage.setItem('t5_guide_seen','1'); }
 </script>
 </body>
 </html>

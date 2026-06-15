@@ -16,6 +16,23 @@ def is_connected():
         return False
 
 
+def connected_ssid():
+    """Return connected SSID as text, or None when disconnected/unknown."""
+    try:
+        import network
+        sta = network.WLAN(network.STA_IF)
+        if not sta.isconnected():
+            return None
+        val = sta.config("essid")
+        if isinstance(val, (bytes, bytearray)):
+            val = val.decode("utf-8", "replace")
+        if not val:
+            return None
+        return str(val)
+    except Exception:
+        return None
+
+
 def _begin(ssid, password):
     import network
     sta = network.WLAN(network.STA_IF)

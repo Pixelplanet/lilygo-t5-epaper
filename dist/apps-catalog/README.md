@@ -48,8 +48,9 @@ flash root). Keep app files under `apps/` and any shared modules under `lib/`.
 - **Web builder:** open `tools/ui-builder.html`, click **Catalog**, pick an app,
   **Add to device**. It adds the launcher tile and bundles the app's files into
   the exported `ui.json` download set.
-- **On device (Wi-Fi):** open the **Apps** installer on the device, which pulls
-  this catalog and downloads the selected app's files over HTTPS.
+- **On device (Wi-Fi):** open the **Apps** installer on the device, tap an app
+  to open its detail page, then choose **Install** (or **Uninstall** if it is
+  already installed).
 
 > Set the catalog URL in the builder / installer to wherever this folder is
 > hosted (e.g. a raw GitHub URL). For local testing the builder can also load a
