@@ -203,7 +203,10 @@ class UpdateConfirmScreen(Screen):
                                                on_progress=progress)
         except Exception as e:  # noqa: BLE001
             debuglog.log("updater: download failed " + str(e))
-            self._status.set_text("Download failed: " + str(e)[:80])
+            msg = str(e)
+            if len(msg) > 100:
+                msg = msg[:97] + "..."
+            self._status.set_text("Failed: " + msg)
             self._bar.set_value(0)
             self._busy = False
             await self.app.flush()

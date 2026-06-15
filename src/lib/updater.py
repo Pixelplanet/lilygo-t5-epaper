@@ -18,8 +18,10 @@ import os
 
 try:
     import uhashlib as hashlib
+    import ubinascii as binascii
 except ImportError:
     import hashlib
+    import binascii
 
 VERSION_PATH = "version.json"
 UPDATE_URL = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/master/update.json"
@@ -31,7 +33,12 @@ def _sha256_hex(data):
     if isinstance(data, str):
         data = data.encode()
     h = hashlib.sha256(data)
-    return h.hexdigest()
+    # MicroPython uhashlib returns .digest() -> bytes; CPython has .hexdigest() -> str.
+    # Use ubinascii.hexlify for portability.
+    try:
+        return h.hexdigest()
+    except AttributeError:
+        return binascii.hexlify(h.digest()).decode()
 
 
 def _file_sha256(path):
