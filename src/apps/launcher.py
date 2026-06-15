@@ -186,10 +186,6 @@ class LauncherScreen(Screen):
         else:
             clock = "--:--"
         self.status.set_status(clock, netconn.connected_ssid())
-        # Push immediately so the Wi-Fi icon updates without waiting for
-        # the next render cycle. Uses a partial (clearing) refresh so old
-        # clock digits are erased cleanly.
-        await self.app.flush()
 
     def _open(self, entry):
         _open_app(self.app, entry)
