@@ -250,10 +250,9 @@ class Screen:
         """Draw clock + Wi-Fi icon + SSID in the title bar (right side)."""
         from lib import netconn
 
-        # Back button occupies x = d.w - 150 - 12 = 798..948.
-        # Put status area to the left of that: x=480..790.
-        status_x = disp.width - 320   # 960 - 320 = 640
-        status_w = 180                # total width for clock + icon + SSID
+        # Back button is at x=798..948.  Place status area left of it: x=600..786.
+        status_x = disp.width - 360   # 960 - 360 = 600
+        status_w = 186                # total width for clock + icon + SSID
         status_h = theme.TITLE_BAR_H - 4
 
         # Clock.

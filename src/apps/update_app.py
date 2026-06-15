@@ -61,17 +61,19 @@ class UpdaterScreen(Screen):
 
     async def _do_check(self):
         self._bar.set_value(10)
-        self._status.set_text("Connecting to Wi-Fi...")
+        self._status.set_text("Checking Wi-Fi...")
         self.set_wifi_state("wait")
         await self.app.flush()
 
-        if not await netconn.auto_connect():
-            self.set_wifi_state("off")
-            self._status.set_text("No Wi-Fi. Connect in the Wi-Fi app first.")
-            self._bar.set_value(0)
-            self._busy = False
-            await self.app.flush()
-            return
+        # If already connected, skip the slow auto_connect scan.
+        if not netconn.is_connected():
+            if not await netconn.auto_connect():
+                self.set_wifi_state("off")
+                self._status.set_text("No Wi-Fi — connect in Wi-Fi app first.")
+                self._bar.set_value(0)
+                self._busy = False
+                await self.app.flush()
+                return
 
         self.set_wifi_state("on")
         self._bar.set_value(40)
