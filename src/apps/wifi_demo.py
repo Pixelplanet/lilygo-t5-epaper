@@ -69,13 +69,30 @@ class HomeScreen(Screen):
                         self._repair, theme.H1_SCALE))
         cy = 170
         bw = d.width - 2 * theme.PAD
-        # If we remember a network, offer one-tap reconnect (no scan/retype).
-        saved_ssid, _ = wifistore.load()
-        if saved_ssid:
-            self.add(Button(theme.PAD, cy, bw, 90,
-                            "Reconnect: " + saved_ssid,
-                            self._reconnect, theme.H1_SCALE))
-            cy += 110
+        # Show all saved networks with one-tap reconnect.
+        networks = wifistore.load_networks()
+        if networks:
+            self.add(Label(theme.PAD, cy, "Saved networks:",
+                           theme.BODY_SCALE, theme.FG_MUTED))
+            cy += 36
+            # Most recent first (reverse).
+            for net in reversed(networks[:3]):  # max 3 visible
+                ssid = net.get("ssid", "?")
+                self.add(Button(theme.PAD, cy, bw - 120, 64,
+                                "Reconnect: " + ssid,
+                                lambda s=ssid: self._reconnect_to(s),
+                                theme.H1_SCALE))
+                # Forget button next to each reconnect.
+                self.add(Button(theme.PAD + bw - 110, cy, 98, 64, "Forget",
+                                lambda s=ssid: self._forget(s),
+                                theme.BODY_SCALE))
+                cy += 76
+            if len(networks) > 3:
+                self.add(Label(theme.PAD, cy,
+                               "+{} more saved".format(len(networks) - 3),
+                               theme.BODY_SCALE, theme.FG_MUTED))
+                cy += 30
+            cy += 12
         self.add(Button(theme.PAD, cy, bw, 90, "Scan Wi-Fi networks",
                         self._scan, theme.TITLE_SCALE))
         self.add(Button(theme.PAD, cy + 110, bw, 90, "Touch test",
@@ -126,10 +143,15 @@ class HomeScreen(Screen):
         from apps import launcher
         self.app.go(launcher.LauncherScreen(self.app))
 
-    def _reconnect(self):
-        ssid, password = wifistore.load()
-        if ssid is not None:
-            self.app.go(ConnectScreen(self.app, ssid, password or ""))
+    def _reconnect_to(self, ssid):
+        net = wifistore.find_network(ssid)
+        if net:
+            self.app.go(ConnectScreen(self.app, ssid, net.get("password", "")))
+
+    def _forget(self, ssid):
+        wifistore.remove(ssid)
+        # Rebuild the home screen to reflect the change.
+        self.app.go(HomeScreen(self.app))
 
     def _scan(self):
         self.app.go(ScanScreen(self.app))
@@ -210,8 +232,14 @@ class NetworkListScreen(Screen):
 
     def _row(self, disp, net, idx, x, y, w, h):
         lock = "[L] " if net["secured"] else "[ ] "
-        disp.text(lock + net["ssid"], x + 10, y + (h - 16) // 2, theme.FG,
+        ssid = net["ssid"]
+        known = wifistore.find_network(ssid) is not None
+        prefix = "* " if known else "  "
+        disp.text(prefix + lock + ssid, x + 10, y + (h - 16) // 2, theme.FG,
                   theme.BODY_SCALE)
+        if known:
+            disp.text("saved", x + w - 130, y + (h - 16) // 2,
+                      theme.ACCENT, theme.SMALL_SCALE)
         # RSSI bars (right aligned)
         bars = self._bars(net["rssi"])
         bx = x + w - 90

@@ -1,9 +1,12 @@
 # netconn.py - shared Wi-Fi connection helpers.
 #
-# Centralises bringing up the station interface using the saved credentials, so
+# Centralises bringing up the station interface using saved credentials, so
 # both the boot-time auto-connect and the apps (e.g. prices) behave the same.
 # Uses a reduced TX power to avoid browning out the e-paper boost converter
 # during association.
+#
+# auto_connect() scans for visible networks and tries every known network that
+# is in range, most-recently-used first. It stops at the first successful one.
 from lib import wifistore
 
 
@@ -48,25 +51,66 @@ def _begin(ssid, password):
 
 
 async def auto_connect(timeout=12):
-    """Async connect to the saved network. Returns True on success.
+    """Scan and connect to the first known network found in range.
 
-    Non-blocking (awaits between polls) so it can run as a background task at
-    boot without stalling the UI.
+    Tries saved networks in most-recently-used order. If the first attempt
+    fails (wrong password, out of range, etc.), it moves on to the next.
+    Non-blocking (awaits between polls) so it can run as a background task.
+
+    Returns True if any connection succeeded, False otherwise.
     """
     import asyncio
-    ssid, password = wifistore.load()
-    if not ssid:
+
+    networks = wifistore.load_networks()
+    if not networks:
         return False
-    try:
-        sta, already = _begin(ssid, password)
-    except Exception:
-        return False
-    if already:
+
+    import network
+    sta = network.WLAN(network.STA_IF)
+    sta.active(True)
+
+    if sta.isconnected():
         return True
-    for _ in range(timeout * 10):
-        if sta.isconnected():
-            return True
-        await asyncio.sleep_ms(100)
+
+    # Scan for visible networks.
+    visible = set()
+    try:
+        if sta.status() not in (0, 1001):
+            sta.disconnect()
+            await asyncio.sleep_ms(400)
+    except Exception:
+        pass
+    await asyncio.sleep_ms(150)
+    try:
+        for r in sta.scan():
+            ssid = r[0]
+            if isinstance(ssid, (bytes, bytearray)):
+                ssid = ssid.decode("utf-8", "replace")
+            if ssid:
+                visible.add(ssid)
+    except Exception:
+        pass
+
+    # Try networks in MRU order (last in list = most recent = first try).
+    for net in reversed(networks):
+        ssid = net.get("ssid")
+        password = net.get("password", "")
+        if ssid not in visible:
+            continue
+
+        try:
+            try:
+                sta.config(txpower=8)
+            except Exception:
+                pass
+            sta.connect(ssid, password)
+            for _ in range(timeout * 10):
+                if sta.isconnected():
+                    return True
+                await asyncio.sleep_ms(100)
+        except Exception:
+            pass
+
     return sta.isconnected()
 
 
