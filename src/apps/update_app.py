@@ -62,20 +62,17 @@ class UpdaterScreen(Screen):
     async def _do_check(self):
         self._bar.set_value(10)
         self._status.set_text("Checking Wi-Fi...")
-        self.set_wifi_state("wait")
         await self.app.flush()
 
         # If already connected, skip the slow auto_connect scan.
         if not netconn.is_connected():
             if not await netconn.auto_connect():
-                self.set_wifi_state("off")
                 self._status.set_text("No Wi-Fi — connect in Wi-Fi app first.")
                 self._bar.set_value(0)
                 self._busy = False
                 await self.app.flush()
                 return
 
-        self.set_wifi_state("on")
         self._bar.set_value(40)
         self._status.set_text("Fetching update manifest from GitHub...")
         await self.app.flush()
@@ -200,7 +197,6 @@ class UpdateConfirmScreen(Screen):
 
         self._status.set_text("Starting download ({} files)...".format(nfiles))
         self._bar.set_value(0)
-        self.set_wifi_state("on")
         await self.app.flush()
 
         try:

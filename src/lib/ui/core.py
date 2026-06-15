@@ -302,8 +302,12 @@ class Screen:
 
     def _status_rect(self, disp):
         """Bounding rect of the status area for dirty-rect tracking."""
-        status_x = disp.width - 320
-        return (status_x - 4, 0, 324, theme.TITLE_BAR_H + 4)
+        status_x = disp.width - 360
+        return (status_x - 4, 0, 190, theme.TITLE_BAR_H + 4)
+
+    def set_wifi_state(self, state):
+        """Invalidate the title-bar status area (no-op, kept for compat)."""
+        pass
 
     def add_back_button(self, on_press=None, label="Back"):
         """Add a uniform Back button in the top-right of the title bar.
