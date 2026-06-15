@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "description": "Regenerated hashes to match current source",
   "files": {
     "boot.py": "66fb4d910903e7d61a92bf3dccfbe1e13463f70109909f6f5ab58e1706962dd7",
@@ -38,5 +38,5 @@
     "lib/ui/widgets.py": "2b1a24f24c832aa16bdcec6c6ddee6baf6e9a2bae586f4fae8bc9075bbeb8e63",
     "lib/ui/__init__.py": "9c3e2c5292cbcafaf8bb96b1851db42fe4e6692fe87ff99b34e7997fd2e79d31"
   },
-  "commit": "8951085fb10bfc795fe09dd30122e863590403c0"
+  "commit": "f9a972a67908f413e5957c66782688fe20a09ab3"
 }
