@@ -74,15 +74,25 @@ class UpdaterScreen(Screen):
             return
 
         self.set_wifi_state("on")
-        self._bar.set_value(30)
+        self._bar.set_value(25)
+        self._status.set_text("Waiting for network to be ready...")
+        await self.app.flush()
+        # After auto-connect, DHCP may not have assigned an IP yet.
+        # Give the stack a moment to settle.
+        await asyncio.sleep_ms(1500)
+
+        self._bar.set_value(40)
         self._status.set_text("Fetching update manifest from GitHub...")
         await self.app.flush()
 
         try:
             self._pending = await updater.check()
         except Exception as e:  # noqa: BLE001
-            debuglog.log("updater: check failed " + str(e))
-            self._status.set_text("Network error. Check debug.log.")
+            msg = str(e)
+            debuglog.log("updater: check failed " + msg)
+            if len(msg) > 100:
+                msg = msg[:97] + "..."
+            self._status.set_text("Network error: " + msg)
             self._bar.set_value(0)
             self._busy = False
             await self.app.flush()
