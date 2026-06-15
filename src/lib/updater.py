@@ -112,6 +112,8 @@ def _https_get(url, timeout=30):
     req = ("GET " + path + " HTTP/1.1\r\n"
            "Host: " + host + "\r\n"
            "User-Agent: lilygo-t5-updater\r\n"
+           "Cache-Control: no-cache\r\n"
+           "Pragma: no-cache\r\n"
            "Connection: close\r\n\r\n")
     s.write(req.encode())
     chunks = []
@@ -147,40 +149,14 @@ def local_version():
 
 
 async def check(update_url=UPDATE_URL):
-    """Fetch the remote update manifest and return changed files if any.
-
-    Uses a two-step fetch to defeat CDN caching:
-    1. Fetch from branch URL (may be stale) to get the embedded commit hash.
-    2. Re-fetch from commit-specific URL for guaranteed-accurate hashes.
-    """
+    """Fetch the remote update manifest and return changed files if any."""
     import time
 
-    ts = str(int(time.time()))
-    body = None
-
-    # Step 1: fetch from branch (cached) to discover the commit.
-    for suffix in ("?cb=" + ts, "?v=" + ts):
-        try:
-            body = _https_get(update_url + suffix)
-            break
-        except Exception:
-            continue
-
-    if body is None:
-        raise OSError("could not fetch update manifest")
-
+    # Fetch from the branch URL with a cache-busting query parameter.
+    # The HTTPS request also sends Cache-Control: no-cache headers.
+    url = update_url + "?t=" + str(int(time.time()))
+    body = _https_get(url)
     remote = json.loads(body)
-    commit = remote.get("commit")
-
-    # Step 2: if we have a commit, re-fetch from the immutable commit URL.
-    # This guarantees hashes match the actual file content.
-    if commit:
-        commit_url = update_url.replace("/master/", "/" + commit + "/")
-        try:
-            body = _https_get(commit_url)
-            remote = json.loads(body)
-        except Exception:
-            pass  # use the branch-fetched version if commit URL fails
 
     return _build_pending(remote)
 
