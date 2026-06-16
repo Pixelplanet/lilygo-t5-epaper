@@ -24,7 +24,7 @@ SRC_BASE = "https://raw.githubusercontent.com/Pixelplanet/lilygo-t5-epaper/maste
 
 # Commit that matches the hashes in update.json — set by gen_hashes.py.
 # All fetches use this commit-specific URL to bypass CDN caching entirely.
-PINNED_COMMIT = "dd6f0b7f3aba36b278ee586869facbfa69e99261"
+PINNED_COMMIT = "8898e68bb5f4234e3fea99ab6f504b5f905848f2"
 
 def _sha256_hex(data):
     """Return lowercase hex SHA-256 digest of a bytes or string."""
