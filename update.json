@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "description": "Regenerated hashes to match current source",
   "files": {
     "boot.py": "66fb4d910903e7d61a92bf3dccfbe1e13463f70109909f6f5ab58e1706962dd7",
@@ -7,13 +7,13 @@
     "main.py": "9679651b84a6350a45a66aa7d7c68d43211f7cb088c9729a309a7b5f4d009b4c",
     "user_hooks.py": "84320f332aede827c8e3e3d35558d66f46adea015ca75b7f39aab259f61f1765",
     "apps/appstore.py": "003247edeca1668a88ee0ba990f11ddae8972e50b0211df44ca9b9e52074d709",
-    "apps/calendar_app.py": "669577a3b5cd46be4a3316602d67922b94c1a9ce86d86b2bfa048c0683d220c7",
+    "apps/calendar_app.py": "c9688d431f5e3ef1852f1d0bf2a86bb2e39fe94aea1fe88da3b9addeaebfb76e",
     "apps/help.py": "011e9928d4e59c50748e9e313f161dc2beb56ddaac85d515f53aeeecbfb89753",
     "apps/launcher.py": "f5adbcd08cd6c0a056b2b3519ad53f603072a0f4c4e19bfbd5fdfbd954c8d2b4",
     "apps/menu.py": "5db776387bc838988adc5ad7b3d7e725657ebc8cb64a4a86e6e62fe25744fcd5",
-    "apps/tibber_app.py": "0f583a6d7d82ed1332fc5e8048507810ca4017732296263f5bb5c2463add1a02",
-    "apps/update_app.py": "862bbde19120feb676dd6760458bda38f02bd021c8fb597581878f30641d6930",
-    "apps/wifi_demo.py": "a52c6de18d14e24699be314e59e879341be06033d5fe67506b544040b5263be2",
+    "apps/tibber_app.py": "382f942dc3479ddebd3bc4e0483515a690889b3b1e9e797c68fcd74d0ecbf973",
+    "apps/update_app.py": "fb1715082c6f5efd96ded7bc0895f776446f8be138d855ff6d6393be209c61b6",
+    "apps/wifi_demo.py": "6e53de606377aac3e08595d41cea4d3af4390b8f15051520f0d89db0c7712ed5",
     "apps/__init__.py": "4306c897d85b3d1ff7d64557de57ea071680eea2709048e91ba59b279659175d",
     "lib/battery.py": "be9b88315bc777aa15216895abbc16c23af6901eeba798dd9286d0d0a12572d2",
     "lib/board.py": "7e4afb4e15dcba0b71b9919d206b5eefb464695b56ae3fa0f59d4f86fb23edc0",
@@ -38,5 +38,5 @@
     "lib/ui/widgets.py": "2b1a24f24c832aa16bdcec6c6ddee6baf6e9a2bae586f4fae8bc9075bbeb8e63",
     "lib/ui/__init__.py": "9c3e2c5292cbcafaf8bb96b1851db42fe4e6692fe87ff99b34e7997fd2e79d31"
   },
-  "commit": "8898e68bb5f4234e3fea99ab6f504b5f905848f2"
+  "commit": "4531bd4e9b0ddf36b05ec6c2ec7579fd32c7577c"
 }
