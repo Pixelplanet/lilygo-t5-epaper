@@ -227,8 +227,8 @@ class PricesScreen(Screen):
     def build(self):
         d = self.app.display
         self.add_back_button()
-        # Toggle sits on the top row so the chart can fill to the bottom edge.
-        self.toggle = Button(d.width - 408, theme.PAD, 228, 50,
+        # Toggle sits below the title bar so the chart can fill to the bottom edge.
+        self.toggle = Button(d.width - 420, theme.TITLE_BAR_H + 8, 228, 50,
                              "Show tomorrow", self._toggle, theme.BODY_SCALE)
         self.toggle.visible = False
         self.add(self.toggle)

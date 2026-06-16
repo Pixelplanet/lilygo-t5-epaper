@@ -57,9 +57,9 @@ class HomeScreen(Screen):
         self.add_back_button()
         self.batt = self.add(Label(theme.PAD, 80, "Battery: --", theme.BODY_SCALE,
                                    theme.FG_MUTED))
-        self.add(Button(d.width - 384, 70, 180, 64, "Refresh",
+        self.add(Button(d.width - 384, theme.TITLE_BAR_H + 12, 180, 64, "Refresh",
                         self._refresh, theme.H1_SCALE))
-        self.add(Button(d.width - 192, 70, 180, 64, "Repair",
+        self.add(Button(d.width - 192, theme.TITLE_BAR_H + 12, 180, 64, "Repair",
                         self._repair, theme.H1_SCALE))
         cy = 170
         bw = d.width - 2 * theme.PAD

@@ -125,9 +125,9 @@ class CalendarScreen(Screen):
     def build(self):
         d = self.app.display
         self.add_back_button()
-        self.add(Button(d.width - 238, theme.PAD, 64, 50, ">",
+        self.add(Button(d.width - 238, theme.TITLE_BAR_H + 8, 64, 50, ">",
                         self._next, theme.H1_SCALE))
-        self.add(Button(d.width - 314, theme.PAD, 64, 50, "<",
+        self.add(Button(d.width - 314, theme.TITLE_BAR_H + 8, 64, 50, "<",
                         self._prev, theme.H1_SCALE))
         today = getattr(self.app.board, "today", None)
         self.add(MonthGrid(theme.PAD, 78, d.width - 2 * theme.PAD,
