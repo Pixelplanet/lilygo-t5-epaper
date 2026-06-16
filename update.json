@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "description": "Regenerated hashes to match current source",
   "files": {
     "boot.py": "66fb4d910903e7d61a92bf3dccfbe1e13463f70109909f6f5ab58e1706962dd7",
@@ -9,7 +9,7 @@
     "apps/appstore.py": "003247edeca1668a88ee0ba990f11ddae8972e50b0211df44ca9b9e52074d709",
     "apps/calendar_app.py": "669577a3b5cd46be4a3316602d67922b94c1a9ce86d86b2bfa048c0683d220c7",
     "apps/help.py": "011e9928d4e59c50748e9e313f161dc2beb56ddaac85d515f53aeeecbfb89753",
-    "apps/launcher.py": "a0d8d14ca89e4a1524cb3e3d305ee44b35d55c4f67affc246e3a993434f38403",
+    "apps/launcher.py": "f5adbcd08cd6c0a056b2b3519ad53f603072a0f4c4e19bfbd5fdfbd954c8d2b4",
     "apps/menu.py": "5db776387bc838988adc5ad7b3d7e725657ebc8cb64a4a86e6e62fe25744fcd5",
     "apps/tibber_app.py": "0f583a6d7d82ed1332fc5e8048507810ca4017732296263f5bb5c2463add1a02",
     "apps/update_app.py": "862bbde19120feb676dd6760458bda38f02bd021c8fb597581878f30641d6930",
@@ -28,7 +28,6 @@
     "lib/profile.py": "f6f78f5fe0daf0896fdfc116ec07174d2d364fa192896fe7a53fed70b35bc90e",
     "lib/shared_i2c.py": "000f8dd1aa88a3493d99eca53827382d1426851332cc2d10ecb912189c4f8114",
     "lib/updater.py": "bb49d64dbc204979bb4139da7c5b69db82c397c6ce3a5e46dfa3d90bfff92abe",
-    "lib/updater_2f96178.py": "5beaf00b5b149809799f6991f13a4f9a957b4cde8899335449816ffc01c58b96",
     "lib/wifistore.py": "74fc4b86ab580b66a02e7a60e6bff5b6243ebefd26cb0a15515c72e09f08de08",
     "lib/__init__.py": "4995c44ded20b5d18e79e78938d636690d74bbfbb417d04dd2da80063de99a20",
     "lib/ui/core.py": "f9a13d2bdc460ea964d27961bc55ef521bf8cad0c8439b41d6c71ddd40efc24d",
@@ -39,5 +38,5 @@
     "lib/ui/widgets.py": "2b1a24f24c832aa16bdcec6c6ddee6baf6e9a2bae586f4fae8bc9075bbeb8e63",
     "lib/ui/__init__.py": "9c3e2c5292cbcafaf8bb96b1851db42fe4e6692fe87ff99b34e7997fd2e79d31"
   },
-  "commit": "dd6f0b7f3aba36b278ee586869facbfa69e99261"
+  "commit": "fd46f5718b512c1a9a0f9fc8a1d605f7ab0296c6"
 }

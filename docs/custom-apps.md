@@ -412,18 +412,100 @@ this through a simple manifest-based diff.
 4. Files are written atomically (temp file → rename) to avoid corruption.
 5. After all downloads, `version.json` is updated and the user resets.
 
-### Adding your app to the update manifest
+### CDN cache — why PINNED_COMMIT exists
 
-When you contribute an app that becomes part of the platform (not the catalog),
-add its files to the deploy so `version.json` tracks them:
+GitHub's raw content CDN (`raw.githubusercontent.com`) caches files served
+under branch URLs (`/master/`) aggressively — often for 5+ minutes.
+Cache-busting query parameters (`?t=...`) and `Cache-Control` headers are
+ignored by this CDN.
 
-1. Place your `.py` files in `src/apps/` or `src/lib/`.
-2. Run `tools/deploy.ps1` — it auto-generates `version.json` and `update.json`
-   with SHA-256 hashes.
-3. Commit and push `update.json` to publish the update.
+To guarantee the downloaded file content matches the recorded SHA-256 hashes
+exactly, the updater uses **commit-specific URLs** (`/<sha>/`) which are
+immutable and never cached. The `PINNED_COMMIT` constant in `updater.py`
+tells the updater which commit to fetch from.
 
-For catalog apps (installed via the App Store), the catalog system handles
-updates separately — users re-install from the store to get new versions.
+### Publishing an OTA update — exact workflow
+
+This is the step-by-step process. Follow it exactly. Skipping steps or
+reordering them will produce hash mismatches.
+
+**Prerequisites:** you have working code changes in `src/` that you want to
+ship as an OTA update.
+
+**Step 1 — Bump the version number**
+
+Edit `update.json` and increment the `"version"` field. The device only
+downloads when the remote version is strictly greater than the local one.
+
+```json
+{ "version": 6, ... }
+```
+
+**Step 2 — Generate the manifest and commit**
+
+```bash
+python tools/gen_hashes.py
+git add update.json
+git commit -m "release: v6 — <description of changes>"
+```
+
+This runs `gen_hashes.py` which:
+- Walks all git-tracked `.py` files in `src/`
+- Normalizes CRLF → LF line endings
+- Computes SHA-256 hashes
+- Writes them into `update.json`
+- Records the current HEAD commit hash in `update.json.commit`
+
+Make a note of the commit hash from this step (call it `ABC`):
+
+```bash
+git rev-parse HEAD   # e.g. dd6f0b7f3aba36b278ee586869facbfa69e99261
+```
+
+**Step 3 — Pin the commit hash**
+
+Update `PINNED_COMMIT` in `src/lib/updater.py` to the hash from Step 2:
+
+```python
+PINNED_COMMIT = "dd6f0b7f3aba36b278ee586869facbfa69e99261"
+```
+
+**Step 4 — Regenerate and commit again**
+
+Changing `updater.py` changes its hash, so regenerate the manifest:
+
+```bash
+python tools/gen_hashes.py
+git add -A
+git commit -m "chore: pin updater to <ABC-short>"
+git push origin master
+```
+
+This second commit ensures the manifest hashes include the updated
+`updater.py` with the correct `PINNED_COMMIT`.
+
+**Step 5 — Deploy the new updater to the device**
+
+The user must deploy the new `updater.py` via USB for this update cycle.
+All future updates will be delivered via OTA (the updater can update itself).
+
+```bash
+mpremote connect COM5 fs cp src/lib/updater.py :lib/updater.py
+```
+
+Then the user opens the Update app on the device, and the new version is
+detected and downloaded.
+
+### Why two commits?
+
+The manifest records hashes of files at commit `ABC`. The hashes in the
+manifest must match the files at that exact commit. But `PINNED_COMMIT` in
+`updater.py` needs to point to `ABC` — which means `updater.py` must be
+modified AFTER commit `ABC`. Hence the second commit.
+
+The updater fetches the manifest from commit `ABC` (via `PINNED_COMMIT`),
+and downloads files from commit `ABC`. Since the hashes were generated from
+the files at commit `ABC`, everything matches.
 
 ### Version numbering
 

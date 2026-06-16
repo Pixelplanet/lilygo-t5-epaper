@@ -121,7 +121,7 @@ class AppTile(Widget):
 
 class LauncherScreen(Screen):
     def __init__(self, app):
-        super().__init__(app, "LilyGo T5")
+        super().__init__(app, "LilyGo T5 Dashboard")
         self.tick_ms = 15000
         # Cache the parsed config on the app so screens can reach it.
         if not hasattr(app, "_ui_config"):
