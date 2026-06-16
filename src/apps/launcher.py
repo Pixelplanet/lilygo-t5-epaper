@@ -129,8 +129,14 @@ class LauncherScreen(Screen):
 
     def build(self):
         d = self.app.display
-        apps = (self.app._ui_config.get("apps") if self.app._ui_config
-                else None) or DEFAULT_APPS
+        # Merge ui.json apps with DEFAULT_APPS: config apps take priority,
+        # defaults fill in any missing tiles. This prevents the app store
+        # from accidentally wiping all tiles when it creates ui.json.
+        config_apps = (self.app._ui_config or {}).get("apps") or []
+        app_map = {a["id"]: a for a in DEFAULT_APPS}
+        for a in config_apps:
+            app_map[a["id"]] = a
+        apps = list(app_map.values())
         gap = theme.PAD
         top = theme.TITLE_BAR_H + theme.PAD
         bottom = 14
