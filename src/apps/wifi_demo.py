@@ -48,19 +48,13 @@ def _ntp_localtime():
 # --------------------------------------------------------------------------- #
 class HomeScreen(Screen):
     def __init__(self, app):
-        super().__init__(app, "LilyGo T5 4.7\" Plus")
-        self.clock = None
+        super().__init__(app, "LilyGo T5 Dashboard")
         self.batt = None
-        # Wake every 15s; we only repaint when the minute actually changes.
-        self.tick_ms = 15000
-        self._last_min = -1
-        self._mins_since_full = 0
+        self.tick_ms = 0   # title bar clock is handled by Screen base class
 
     def build(self):
         d = self.app.display
         self.add_back_button()
-        self.clock = self.add(Label(d.width - 302, 6, "--:--",
-                                     theme.H1_SCALE))
         self.batt = self.add(Label(theme.PAD, 80, "Battery: --", theme.BODY_SCALE,
                                    theme.FG_MUTED))
         self.add(Button(d.width - 384, 70, 180, 64, "Refresh",
@@ -106,32 +100,6 @@ class HomeScreen(Screen):
         pct = self.app.board.battery.percent()
         if pct is not None:
             self.batt.set_text("Battery: {}%".format(pct))
-        await self._update_clock(force=True)
-
-    async def _update_clock(self, force=False):
-        """Refresh the on-screen clock from the RTC.
-
-        Only repaints when the minute changes. Every 10 minute-updates we run a
-        full refresh to clear the ghosting that partial updates leave behind.
-        """
-        dt = await self.app.board.rtc.datetime()
-        if not dt:
-            return
-        minute = dt[5]
-        if not force and minute == self._last_min:
-            return
-        self._last_min = minute
-        self.clock.set_text("{:02d}:{:02d}".format(dt[4], minute))
-        if force:
-            return
-        self._mins_since_full += 1
-        if self._mins_since_full >= 10:
-            self._mins_since_full = 0
-            # Full refresh sweeps ghosting and redraws the (updated) clock.
-            self.app.refresh_now()
-
-    async def on_tick(self):
-        await self._update_clock()
 
     def _refresh(self):
         self.app.refresh_now()
