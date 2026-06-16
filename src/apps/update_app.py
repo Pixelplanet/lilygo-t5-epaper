@@ -70,6 +70,7 @@ class UpdaterScreen(Screen):
                 self._status.set_text("No Wi-Fi — connect in Wi-Fi app first.")
                 self._bar.set_value(0)
                 self._busy = False
+                self._btn.on_press = self._start_check
                 await self.app.flush()
                 return
 
@@ -87,6 +88,7 @@ class UpdaterScreen(Screen):
             self._status.set_text("Network error: " + msg)
             self._bar.set_value(0)
             self._busy = False
+            self._btn.on_press = self._start_check
             await self.app.flush()
             return
 
@@ -97,6 +99,7 @@ class UpdaterScreen(Screen):
             self._status.set_text(
                 "Up to date (v{}). No newer version found.".format(local_ver))
             self._busy = False
+            self._btn.on_press = self._start_check
             await self.app.flush()
             return
 
