@@ -169,6 +169,13 @@ class LauncherScreen(Screen):
         for entry, slot in zip(flow, free):
             tx, ty = slot_xy(slot)
             self.add(AppTile(tx, ty, tile, tile, entry, self._open))
+        # If more apps than slots, show a "+N more" indicator.
+        overflow = len(flow) - len(free)
+        if overflow > 0:
+            self.add(Label(theme.PAD, d.height - 30,
+                           "+{} more app{}".format(overflow,
+                                                   "s" if overflow != 1 else ""),
+                           theme.SMALL_SCALE, theme.FG_MUTED))
 
     def _open(self, entry):
         _open_app(self.app, entry)
